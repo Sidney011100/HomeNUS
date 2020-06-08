@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+//why is this not working why got red lines the code got period
 @NgModule({
   declarations: [
     AppComponent
