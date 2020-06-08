@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "home-nus"
+    }
+  },
+  "defaultProject": "home-nus",
+  "cli": {
+    "analytics": false
+  }
 }
