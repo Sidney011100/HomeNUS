@@ -5,9 +5,10 @@
   <div><a routerLink="/">Logo</a></div>
   <div fxFlex fxLayoutAlign="flex-end" fxHide.xs >
       <ul fxLayout class="navigation-items" fxLayoutGap="10px" >
-        <li><a routerLink="/">Home</a></li>
-        <li><a routerLink="/welcome">Welcome</a></li>
-        <li><a routerLink="/booking">Booking</a></li>
+        <li *ngIf="!isAuth"><a routerLink="/">Home</a></li>
+        <li *ngIf="isAuth"><a routerLink="/welcome">Welcome</a></li>
+        <li *ngIf="isAuth"><a routerLink="/booking">Booking</a></li>
+        <li *ngIf="isAuth"><a style="cursor: pointer" (click)="onLogout()">Logout</a>></li>
       </ul>
   </div>
 </mat-toolbar>

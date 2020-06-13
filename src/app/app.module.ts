@@ -17,6 +17,7 @@ import { AboutComponent} from './auth/about/about.component';
 import { HeaderComponent } from './navigation/header/header.component';
 import { SidenavComponent } from './navigation/sidenav/sidenav.component';
 import { BookingComponent } from './booking/booking.component';
+import { AuthService } from './auth/auth.service';
 
 //why is this not working why got red lines the code got period
 @NgModule({
@@ -40,7 +41,7 @@ import { BookingComponent } from './booking/booking.component';
       FormsModule,
       ReactiveFormsModule
    ],
-   providers: [],
+   providers: [AuthService],
    bootstrap: [
       AppComponent
    ]
