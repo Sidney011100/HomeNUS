@@ -1,5 +1,10 @@
-mat-sidenav {
-    width:200px;
+a {
+    text-decoration: none;
+    color: #035aa6;
+}
+
+ a:hover, a:active {
+    color: grey;
 }
 
 .navigation-items {
