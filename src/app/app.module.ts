@@ -21,6 +21,7 @@ import { AuthService } from './auth/auth.service';
 
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { AngularFireAuthModule } from 'angularfire2/auth';
 import { environment } from '../environments/environment';
 
 //why is this not working why got red lines the code got period
@@ -45,7 +46,8 @@ import { environment } from '../environments/environment';
       FormsModule,
       ReactiveFormsModule, 
       AngularFireModule.initializeApp(environment.firebase), 
-      AngularFirestoreModule
+      AngularFirestoreModule, 
+      AngularFireAuthModule
    ],
    providers: [AuthService],
    bootstrap: [
