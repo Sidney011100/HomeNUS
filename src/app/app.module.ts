@@ -19,6 +19,10 @@ import { SidenavComponent } from './navigation/sidenav/sidenav.component';
 import { BookingComponent } from './booking/booking.component';
 import { AuthService } from './auth/auth.service';
 
+import { AngularFireModule } from 'angularfire2';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { environment } from '../environments/environment';
+
 //why is this not working why got red lines the code got period
 @NgModule({
    declarations: [
@@ -39,7 +43,9 @@ import { AuthService } from './auth/auth.service';
       MaterialModule,
       FlexLayoutModule,
       FormsModule,
-      ReactiveFormsModule
+      ReactiveFormsModule, 
+      AngularFireModule.initializeApp(environment.firebase), 
+      AngularFirestoreModule
    ],
    providers: [AuthService],
    bootstrap: [
