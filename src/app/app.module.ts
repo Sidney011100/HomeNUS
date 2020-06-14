@@ -23,6 +23,8 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { environment } from '../environments/environment';
+import { HomeComponent } from './hallwelcome/home/home.component';
+import { CalendarComponent } from './hallwelcome/calendar/calendar.component';
 
 //why is this not working why got red lines the code got period
 @NgModule({
@@ -35,7 +37,9 @@ import { environment } from '../environments/environment';
       AboutComponent,
       HeaderComponent,
       SidenavComponent,
-      BookingComponent
+      BookingComponent,
+      HomeComponent,
+      CalendarComponent
    ],
    imports: [
       BrowserModule,
