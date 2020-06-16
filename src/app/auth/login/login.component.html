@@ -1,4 +1,10 @@
-<section class="loginForm">
+<section class="loginForm" fxLayout="column" fxLayoutAlign="center center" >
+    <div class="formGroup">
+        <button type="button" (click)="this.authService.googleAuth()">
+          Log in with Google
+        </button>
+      </div>
+
   <form fxLayout="column" 
       fxLayoutAlign="center center" 
           fxLayoutGap="10px"

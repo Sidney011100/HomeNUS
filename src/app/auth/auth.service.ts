@@ -5,6 +5,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 
 import { AuthData } from './auth-data.model';
 import { User } from './user.model';
+import { auth } from 'firebase';
 
 
 
@@ -42,6 +43,20 @@ export class AuthService {
                     })
                     .catch(error => console.log(error))
     }
+
+    googleAuth() {
+        return this.authLogin(new auth.GoogleAuthProvider());
+    }
+
+    authLogin(provider) {
+        return this.afAuth.auth.signInWithPopup(provider)
+            .then(result => {
+                console.log('You have been successfully logged in!')
+            })
+            .catch(error => {
+                console.log(error)
+            })
+    } 
 
     login(authData: AuthData) {
         this.afAuth.auth
