@@ -1,8 +1,4 @@
 <mat-nav-list>
-  <a mat-list-item routerLink="/" (click)="OnClose()" *ngIf="!isAuth">
-      <mat-icon>login</mat-icon>
-      <span class="nav-caption">Home</span>
-  </a>
   <a mat-list-item routerLink="/welcome" (click)="OnClose()" *ngIf="isAuth">
       <mat-icon>home</mat-icon>
       <span class="nav-caption">Welcome</span>

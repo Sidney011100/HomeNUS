@@ -4,21 +4,17 @@ import { Subject } from 'rxjs';
 import { AngularFireAuth } from 'angularfire2/auth';
 
 import { AuthData } from './auth-data.model';
-import { User } from './user.model';
 import { auth } from 'firebase';
-
-
 
 @Injectable()
 export class AuthService {
     private isAuthenticated = false;
     authChange = new Subject<boolean>();
 
+
     constructor(private router: Router,
                 private afAuth: AngularFireAuth 
-        ) {
-
-    }
+        ) {}
 
     initAuthListener() {
         this.afAuth.authState.subscribe(user => {
