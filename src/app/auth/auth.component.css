@@ -2,3 +2,9 @@ app-login {
     padding:20px;
 }
 
+app-signup {
+    border: black;
+    border-width: 500px;
+    width: 300px;
+}
+

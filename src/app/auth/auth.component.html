@@ -1,4 +1,7 @@
 
-<app-about></app-about>
-<app-login></app-login>
-<app-signup></app-signup>
+<section fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px">
+    <app-about></app-about>
+    <app-login *ngIf="!registerUserCalled"></app-login>
+    <app-signup *ngIf="!loginCalled"></app-signup>
+</section>
+

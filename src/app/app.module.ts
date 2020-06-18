@@ -30,6 +30,8 @@ import { CalendarComponent } from './hallwelcome/calendar/calendar.component';
 import { MsalModule, MsalInterceptor } from '@azure/msal-angular';
 import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
 
+import { UIService } from './shared/ui.service';
+
 const isIE = window.navigator.userAgent.indexOf('MSIE ') > -1 || window.navigator.userAgent.indexOf('Trident/') > -1;
 
 @NgModule({
@@ -57,7 +59,7 @@ const isIE = window.navigator.userAgent.indexOf('MSIE ') > -1 || window.navigato
       AngularFireModule.initializeApp(environment.firebase), 
       AngularFirestoreModule, 
       AngularFireAuthModule, 
-   MsalModule.forRoot({
+      MsalModule.forRoot({
       auth: {
         clientId: 'api://231b15e8-1f83-4869-a953-2092ef852bec', // This is your client ID
         authority: 'https://login.microsoftonline.com', // This is your tenant ID
@@ -84,11 +86,11 @@ const isIE = window.navigator.userAgent.indexOf('MSIE ') > -1 || window.navigato
     })
   ],
    providers: [AuthService,
-      {
-         provide: HTTP_INTERCEPTORS,
-         useClass: MsalInterceptor,
-         multi: true
-     }
+               {
+                  provide: HTTP_INTERCEPTORS,
+                  useClass: MsalInterceptor,
+                  multi: true },
+               UIService
    ],
    bootstrap: [
       AppComponent

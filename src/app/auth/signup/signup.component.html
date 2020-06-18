@@ -1,6 +1,8 @@
   <!-- includes both sign up, and about us -->
   <section class="signupform">
+    
     <form fxLayout="column" fxLayoutAlign="center center" #f="ngForm" (ngSubmit)="onSignUp(f)">
+      <p>Don't have an account? Sign up below</p>
       <mat-form-field>
         <input 
           type="email" 
@@ -31,6 +33,7 @@
   
       </mat-form-field>
   
-      <button mat-raised-button color="primary" type="submit"  [disabled]="f.invalid">Sign Up</button>
+      <button mat-raised-button color="primary" type="submit"  [disabled]="f.invalid" *ngIf="!isLoading">Sign Up</button>
+      <mat-spinner *ngIf="isLoading"></mat-spinner>
     </form>
   </section>

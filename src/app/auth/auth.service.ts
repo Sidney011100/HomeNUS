@@ -8,18 +8,20 @@ import { auth } from 'firebase';
 
 import firebase from '@firebase/app';
 import '@firebase/auth';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { UIService } from '../shared/ui.service';
 
-// var provider = new firebase.auth.OAuthProvider('microsoft.com');
 
 @Injectable()
 export class AuthService {
     private isAuthenticated = false;
     authChange = new Subject<boolean>();
 
-    // provider = new firebase.auth.OAuthProvider('microsoft.com');
 
     constructor(private router: Router,
-                private afAuth: AngularFireAuth 
+                private afAuth: AngularFireAuth, 
+                private snackBar: MatSnackBar, 
+                private uiService: UIService
         ) {}
 
     initAuthListener() {
@@ -38,12 +40,38 @@ export class AuthService {
     }
 
     registerUser(authData: AuthData) {
+        this.uiService.loadingStateChanged.next(true);
+        this.uiService.regsterUserCalled.next(true);
         this.afAuth.auth
                     .createUserWithEmailAndPassword(authData.email, authData.password)
                     .then(result => {
+                        this.uiService.loadingStateChanged.next(false);
+                        this.uiService.regsterUserCalled.next(false);
                         console.log(result)
                     })
-                    .catch(error => console.log(error))
+                    .catch(error => {
+                        this.uiService.loadingStateChanged.next(false);
+                        this.uiService.regsterUserCalled.next(false);
+                        this.uiService.showSnackBar(error.message, null, 3000)
+                    });
+    }
+
+    login(authData: AuthData) {
+        this.uiService.loadingStateChanged.next(true);
+        this.uiService.loginCalled.next(true);
+        this.afAuth.auth
+            .signInWithEmailAndPassword(authData.email, authData.password)
+            .then(result => {
+                this.uiService.loadingStateChanged.next(false);
+                this.uiService.loginCalled.next(false);
+                console.log(result);
+                console.log('signed in!');
+            })
+            .catch(error => {
+                this.uiService.loadingStateChanged.next(false);
+                this.uiService.loginCalled.next(false);
+                this.uiService.showSnackBar(error.message, null, 3000)
+            })
     }
 
     googleAuth() {
@@ -60,22 +88,17 @@ export class AuthService {
                 console.log('You have been successfully logged in!')
             })
             .catch(error => {
-                console.log(error)
+                this.uiService.showSnackBar(error.message, null, 3000)
             })
     } 
 
-    login(authData: AuthData) {
-        this.afAuth.auth
-            .signInWithEmailAndPassword(authData.email, authData.password)
-            .then(result => {
-                console.log(result)
-            })
-            .catch(error => console.log(error))
-    }
+
 
     logout() {
-        this.isAuthenticated = false;
-        this.afAuth.auth.signOut();
+        this.afAuth.auth.signOut()
+            .catch(error => {
+                console.log(error);
+            });
     }
 
     isAuth() {

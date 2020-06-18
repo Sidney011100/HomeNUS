@@ -1,3 +1,16 @@
-mat-form-field {
+button, mat-form-field {
     width: 300px;
+    border: black;
+    
 }
+
+div {
+    width: 300px;
+    border: black;
+}
+.signupform, section, form{
+    margin: 0;
+    border: black;
+    border-width: 200px;
+}
+

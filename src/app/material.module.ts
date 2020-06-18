@@ -10,6 +10,8 @@ import { MatListModule } from '@angular/material/list';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatTableModule } from '@angular/material/table';
 import { MatCardModule } from '@angular/material/card';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 
 
@@ -24,7 +26,9 @@ import { MatCardModule } from '@angular/material/card';
         MatListModule,
         MatTabsModule,
         MatTableModule,
-        MatCardModule
+        MatCardModule, 
+        MatSnackBarModule, 
+        MatProgressSpinnerModule
         ], 
     exports: [
         MatSidenavModule, 
@@ -36,7 +40,9 @@ import { MatCardModule } from '@angular/material/card';
         MatListModule,
         MatTabsModule,
         MatTableModule,
-        MatCardModule
+        MatCardModule, 
+        MatSnackBarModule, 
+        MatProgressSpinnerModule
         ]
 })
 

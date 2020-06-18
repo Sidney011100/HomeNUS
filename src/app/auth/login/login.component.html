@@ -40,9 +40,10 @@
           <mat-error *ngIf="loginForm.value.password.toString().length == 0">Missing password</mat-error>
           <mat-error *ngIf="!(loginForm.value.password.toString().length == 0)">Invalid password</mat-error>
       </mat-form-field>
-      <button mat-raised-button color="primary" type="submit" [disabled]="loginForm.invalid">
+      <button mat-raised-button color="primary" type="submit" [disabled]="loginForm.invalid" *ngIf="!isLoading">
           Log In
       </button>
-      <!-- <mat-spinner *ngIf="isLoading$ | async"></mat-spinner> -->
+
+      <mat-spinner *ngIf="isLoading"></mat-spinner>
   </form>
 </section>
