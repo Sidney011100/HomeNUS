@@ -6,11 +6,17 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { AuthData } from './auth-data.model';
 import { auth } from 'firebase';
 
+import firebase from '@firebase/app';
+import '@firebase/auth';
+
+// var provider = new firebase.auth.OAuthProvider('microsoft.com');
+
 @Injectable()
 export class AuthService {
     private isAuthenticated = false;
     authChange = new Subject<boolean>();
 
+    // provider = new firebase.auth.OAuthProvider('microsoft.com');
 
     constructor(private router: Router,
                 private afAuth: AngularFireAuth 
@@ -44,6 +50,10 @@ export class AuthService {
         return this.authLogin(new auth.GoogleAuthProvider());
     }
 
+    microsoftAuth() {
+        return this.authLogin(new auth.OAuthProvider('microsoft.com'));
+    }
+
     authLogin(provider) {
         return this.afAuth.auth.signInWithPopup(provider)
             .then(result => {
@@ -64,6 +74,7 @@ export class AuthService {
     }
 
     logout() {
+        this.isAuthenticated = false;
         this.afAuth.auth.signOut();
     }
 

@@ -1,6 +1,12 @@
-<section class="loginForm" fxLayout="column" fxLayoutAlign="center center" >
+<section class="loginForm" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px">
+    <div class="formGroup" >
+        <button type="button" mat-raised-button color="primary" (click)="this.authService.microsoftAuth()" width="40px">
+          Log in with Microsoft
+        </button>
+      </div>
+
     <div class="formGroup">
-        <button type="button" mat-raised-button color="primary" (click)="this.authService.googleAuth()">
+        <button type="button" mat-raised-button color="primary" (click)="this.authService.googleAuth()" width="40px">
           Log in with Google
         </button>
       </div>

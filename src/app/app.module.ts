@@ -26,7 +26,12 @@ import { environment } from '../environments/environment';
 import { HomeComponent } from './hallwelcome/home/home.component';
 import { CalendarComponent } from './hallwelcome/calendar/calendar.component';
 
-//why is this not working why got red lines the code got period
+
+import { MsalModule, MsalInterceptor } from '@azure/msal-angular';
+import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
+
+const isIE = window.navigator.userAgent.indexOf('MSIE ') > -1 || window.navigator.userAgent.indexOf('Trident/') > -1;
+
 @NgModule({
    declarations: [
       AppComponent,
@@ -51,9 +56,40 @@ import { CalendarComponent } from './hallwelcome/calendar/calendar.component';
       ReactiveFormsModule, 
       AngularFireModule.initializeApp(environment.firebase), 
       AngularFirestoreModule, 
-      AngularFireAuthModule
+      AngularFireAuthModule, 
+   MsalModule.forRoot({
+      auth: {
+        clientId: 'api://231b15e8-1f83-4869-a953-2092ef852bec', // This is your client ID
+        authority: 'https://login.microsoftonline.com', // This is your tenant ID
+        redirectUri: 'http://localhost:4200'// This is your redirect URI
+      },
+      cache: {
+        cacheLocation: 'localStorage',
+        storeAuthStateInCookie: isIE, // Set to true for Internet Explorer 11
+      },
+    }, {
+      popUp: !isIE,
+      consentScopes: [
+        'user.read',
+        'openid',
+        'profile',
+        'welcome',
+        'booking'
+      ],
+      unprotectedResources: [],
+      protectedResourceMap: [
+        ['https://graph.microsoft.com/v1.0/me', ['user.read']]
+      ],
+      extraQueryParameters: {}
+    })
+  ],
+   providers: [AuthService,
+      {
+         provide: HTTP_INTERCEPTORS,
+         useClass: MsalInterceptor,
+         multi: true
+     }
    ],
-   providers: [AuthService],
    bootstrap: [
       AppComponent
    ]

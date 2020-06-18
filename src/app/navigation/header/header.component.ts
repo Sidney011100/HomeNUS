@@ -20,7 +20,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.authSubscription = this.authService.authChange.subscribe(status => {
       this.isAuth = status;
     })
-  }
+  };
 
   onToggleSidenav() {
     this.sidenavToggle.emit();
