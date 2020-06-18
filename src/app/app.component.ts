@@ -1,6 +1,5 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { AuthService } from './auth/auth.service';
-import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -10,8 +9,7 @@ import { Subscription } from 'rxjs';
 })
 
 
-export class AppComponent implements OnInit, OnDestroy {
-  authSubscription: Subscription;
+export class AppComponent implements OnInit{
 
   constructor(private authService: AuthService) {}
 
@@ -19,8 +17,6 @@ export class AppComponent implements OnInit, OnDestroy {
     this.authService.initAuthListener();
   }
 
-  ngOnDestroy() {
-    this.authSubscription.unsubscribe();
-  }
+
 
 }
