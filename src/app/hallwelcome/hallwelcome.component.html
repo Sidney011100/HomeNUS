@@ -1,7 +1,19 @@
-<section fxLayout="column" fxLayoutAlign="center center">
-    <app-home></app-home>
-    <br>
-    <br>
-    <br>
-    <app-calendar></app-calendar>
-</section>
+<mat-tab-group animationDuration="1200ms">
+
+    <mat-tab>
+        <ng-template mat-tab-label>
+            <mat-icon>announcement</mat-icon>
+            Announcements
+        </ng-template>
+        <app-home></app-home>
+    </mat-tab>
+
+    <mat-tab>
+        <ng-template mat-tab-label>
+            <mat-icon>today</mat-icon>
+            Calendar
+        </ng-template>
+        <app-calendar></app-calendar>
+    </mat-tab>
+
+</mat-tab-group>

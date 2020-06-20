@@ -1,0 +1,8 @@
+.add-announcement-form {
+    padding: 20px;
+}
+.add {
+    width: 60%;
+    background-color: rgb(138, 223, 11);
+    border: 2px solid rgb(77, 74, 74);
+}

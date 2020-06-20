@@ -1,0 +1,14 @@
+<h2>Add an Announcement</h2>
+<div class="add-announcement-form" fxLayout="column" fxLayoutAlign="center">
+    <form #f="ngForm" (ngSubmit)="onAdd(f)">
+        <mat-form-field appearance="outline">
+            <mat-label>Announcement Title</mat-label>
+            <input matInput type="text" ngModel name="title">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Description</mat-label>
+            <input matInput type="text" ngModel name="description">
+        </mat-form-field>
+        <button type="submit" class="add" mat-raised-button mat-dialog-close>Add</button>
+    </form>
+</div>

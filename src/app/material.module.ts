@@ -10,9 +10,9 @@ import { MatListModule } from '@angular/material/list';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatTableModule } from '@angular/material/table';
 import { MatCardModule } from '@angular/material/card';
-import {MatSnackBarModule} from '@angular/material/snack-bar';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 @NgModule({
@@ -28,7 +28,9 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
         MatTableModule,
         MatCardModule, 
         MatSnackBarModule, 
-        MatProgressSpinnerModule
+        MatProgressSpinnerModule,
+        MatCardModule,
+        MatDialogModule
         ], 
     exports: [
         MatSidenavModule, 
@@ -42,7 +44,9 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
         MatTableModule,
         MatCardModule, 
         MatSnackBarModule, 
-        MatProgressSpinnerModule
+        MatProgressSpinnerModule,
+        MatCardModule,
+        MatDialogModule
         ]
 })
 

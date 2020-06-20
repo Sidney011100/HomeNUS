@@ -1,3 +1,23 @@
-.event-list {
-    padding: 30px;
+h1 {
+    text-align: center;
+}
+
+mat-card-title {
+    text-decoration: underline;
+}
+
+.announcement-board {
+    padding: 20px 10px 10px 10px;
+}
+
+.a-card {
+    margin: 0px 10px 15px 10px;
+}
+
+mat-card-content {
+    line-height: 20px;
+}
+
+mat-card-content {
+    /* text-shadow: 5px 5px #E9E9E9; */
 }

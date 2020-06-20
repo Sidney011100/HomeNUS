@@ -1,14 +1,13 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthComponent } from './auth/auth.component';
 import { MaterialModule } from './material.module';
 import { HallWelcomeComponent } from './hallwelcome/hallwelcome.component';
-import {FlexLayoutModule} from '@angular/flex-layout';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { FlexLayoutModule} from '@angular/flex-layout';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { SignupComponent } from './auth/signup/signup.component';
 import { LoginComponent } from './auth/login/login.component';
@@ -25,6 +24,7 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 import { environment } from '../environments/environment';
 import { HomeComponent } from './hallwelcome/home/home.component';
 import { CalendarComponent } from './hallwelcome/calendar/calendar.component';
+import { AddAnnouncementComponent } from './hallwelcome/home/add-announcement/add-announcement.component';
 
 
 import { MsalModule, MsalInterceptor } from '@azure/msal-angular';
@@ -46,7 +46,8 @@ const isIE = window.navigator.userAgent.indexOf('MSIE ') > -1 || window.navigato
       SidenavComponent,
       BookingComponent,
       HomeComponent,
-      CalendarComponent
+      CalendarComponent,
+      AddAnnouncementComponent
    ],
    imports: [
       BrowserModule,
@@ -92,8 +93,7 @@ const isIE = window.navigator.userAgent.indexOf('MSIE ') > -1 || window.navigato
                   multi: true },
                UIService
    ],
-   bootstrap: [
-      AppComponent
-   ]
+   bootstrap: [AppComponent],
+   entryComponents:[AddAnnouncementComponent]
 })
 export class AppModule { }
