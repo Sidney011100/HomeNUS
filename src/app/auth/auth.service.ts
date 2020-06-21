@@ -1,28 +1,42 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Subject } from 'rxjs';
+import { Subject, Observable, of } from 'rxjs';
 import { AngularFireAuth } from 'angularfire2/auth';
-
+import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { AuthData } from './auth-data.model';
 import { auth } from 'firebase';
+import { switchMap } from 'rxjs/operators';
 
 import firebase from '@firebase/app';
 import '@firebase/auth';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { UIService } from '../shared/ui.service';
+import { User } from './user.model';
+
 
 
 @Injectable()
 export class AuthService {
     private isAuthenticated = false;
     authChange = new Subject<boolean>();
-
+    user$: Observable<User>;
 
     constructor(private router: Router,
-                private afAuth: AngularFireAuth, 
-                private snackBar: MatSnackBar, 
-                private uiService: UIService
-        ) {}
+        private afAuth: AngularFireAuth,
+        private snackBar: MatSnackBar,
+        private uiService: UIService,
+        private database: AngularFirestore
+    ) {
+        this.user$ = this.afAuth.authState.pipe( // Get auth data, then get firestore user document || null
+            switchMap(user => {
+                if (user) {
+                    return this.database.doc<User>(`users/${user.uid}`).valueChanges();
+                } else {
+                    return of(null); //change 
+                }
+            })
+        );
+    }
 
     initAuthListener() {
         this.afAuth.authState.subscribe(user => {
@@ -39,40 +53,40 @@ export class AuthService {
         });
     }
 
-    registerUser(authData: AuthData) {
-        this.uiService.loadingStateChanged.next(true);
-        this.uiService.regsterUserCalled.next(true);
-        this.afAuth.auth
-                    .createUserWithEmailAndPassword(authData.email, authData.password)
-                    .then(result => {
-                        this.uiService.loadingStateChanged.next(false);
-                        this.uiService.regsterUserCalled.next(false);
-                        console.log(result)
-                    })
-                    .catch(error => {
-                        this.uiService.loadingStateChanged.next(false);
-                        this.uiService.regsterUserCalled.next(false);
-                        this.uiService.showSnackBar(error.message, null, 3000)
-                    });
-    }
+    // registerUser(authData: AuthData) {
+    //     this.uiService.loadingStateChanged.next(true);
+    //     this.uiService.regsterUserCalled.next(true);
+    //     this.afAuth.auth
+    //         .createUserWithEmailAndPassword(authData.email, authData.password)
+    //         .then(result => {
+    //             this.uiService.loadingStateChanged.next(false);
+    //             this.uiService.regsterUserCalled.next(false);
+    //             console.log(result)
+    //         })
+    //         .catch(error => {
+    //             this.uiService.loadingStateChanged.next(false);
+    //             this.uiService.regsterUserCalled.next(false);
+    //             this.uiService.showSnackBar(error.message, null, 3000)
+    //         });
+    // }
 
-    login(authData: AuthData) {
-        this.uiService.loadingStateChanged.next(true);
-        this.uiService.loginCalled.next(true);
-        this.afAuth.auth
-            .signInWithEmailAndPassword(authData.email, authData.password)
-            .then(result => {
-                this.uiService.loadingStateChanged.next(false);
-                this.uiService.loginCalled.next(false);
-                console.log(result);
-                console.log('signed in!');
-            })
-            .catch(error => {
-                this.uiService.loadingStateChanged.next(false);
-                this.uiService.loginCalled.next(false);
-                this.uiService.showSnackBar(error.message, null, 3000)
-            })
-    }
+    // login(authData: AuthData) {
+    //     this.uiService.loadingStateChanged.next(true);
+    //     this.uiService.loginCalled.next(true);
+    //     this.afAuth.auth
+    //         .signInWithEmailAndPassword(authData.email, authData.password)
+    //         .then(result => {
+    //             this.uiService.loadingStateChanged.next(false);
+    //             this.uiService.loginCalled.next(false);
+    //             console.log(result);
+    //             console.log('signed in!');
+    //         })
+    //         .catch(error => {
+    //             this.uiService.loadingStateChanged.next(false);
+    //             this.uiService.loginCalled.next(false);
+    //             this.uiService.showSnackBar(error.message, null, 3000)
+    //         })
+    // }
 
     googleAuth() {
         return this.authLogin(new auth.GoogleAuthProvider());
@@ -84,15 +98,14 @@ export class AuthService {
 
     authLogin(provider) {
         return this.afAuth.auth.signInWithPopup(provider)
-            .then(result => {
+            .then(cred => {
+                this.updateUserData(cred.user);
                 console.log('You have been successfully logged in!')
             })
             .catch(error => {
                 this.uiService.showSnackBar(error.message, null, 3000)
             })
-    } 
-
-
+    }
 
     logout() {
         this.afAuth.auth.signOut()
@@ -104,4 +117,51 @@ export class AuthService {
     isAuth() {
         return this.isAuthenticated;
     }
+
+    // Sets user data to firestore on login
+    private updateUserData(user) {
+        const userRef: AngularFirestoreDocument<any> = this.database.doc(`users/${user.uid}`);
+        const data: User = {
+            userId: user.uid,
+            email: user.email,
+            roles: {
+                member: true
+            }
+        };
+        return userRef.set(data, { merge: true });
+    }
+
+    // determines if user has matching role
+    private checkAuthorization(user: User, allowedRoles: string[]): boolean {
+        if (!user) return false
+        for (const role of allowedRoles) {
+            if (user.roles[role]) {
+                return true
+            }
+        }
+        return false
+    }
+
+    ///// Role-based Authorization //////
+
+    canRead(user: User): boolean {
+        const allowed = ['admin', 'member']
+        return this.checkAuthorization(user, allowed)
+    }
+
+    canEdit(user: User): boolean {
+        const allowed = ['admin']
+        return this.checkAuthorization(user, allowed)
+    }
+
+    canDelete(user: User): boolean {
+        const allowed = ['admin']
+        return this.checkAuthorization(user, allowed)
+    }
+
+    ///// End of Role-based Authorization //////
+
+
+
+
 }

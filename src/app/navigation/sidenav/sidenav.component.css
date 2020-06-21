@@ -10,3 +10,7 @@ mat-sidenav {
     display: inline-block;
     padding: 6px;
 }
+
+mat-nav-list {
+    height: 100%;
+}

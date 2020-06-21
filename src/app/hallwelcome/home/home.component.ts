@@ -1,10 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { AngularFirestore } from 'angularfire2/firestore';
 import { Announcement } from '../announcement.model';
 import { MatDialog } from '@angular/material/dialog';
 import { AddAnnouncementComponent } from './add-announcement/add-announcement.component';
 import { AnnouncementService } from './announcement.service';
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
+import { AuthService } from 'src/app/auth/auth.service';
+import { User } from 'src/app/auth/user.model';
 
 @Component({
   selector: 'app-home',
@@ -17,15 +18,19 @@ export class HomeComponent implements OnInit, OnDestroy {
   editState: boolean = false;
   announcementToEdit: Announcement;
 
+  user: User;
+
   constructor(
-    private database: AngularFirestore, 
     private dialog: MatDialog,
-    private announcementService: AnnouncementService
+    private announcementService: AnnouncementService,
+    public auth: AuthService
     ) { }
 
   ngOnInit(): void { 
     this.announcementSubscription = this.announcementService.dataChanged.subscribe(a => this.announcements = a);
     this.announcementService.fetchData();
+
+    this.auth.user$.subscribe(user => this.user = user);
   }
 
   ngOnDestroy() {

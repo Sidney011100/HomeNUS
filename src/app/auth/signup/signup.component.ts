@@ -21,12 +21,12 @@ export class SignupComponent implements OnInit, OnDestroy {
     this.loadSubs = this.uiService.loadingStateChanged.subscribe(state => this.isLoading = state);
   }
 
-  onSignUp(form: NgForm) {
-    this.authService.registerUser({
-      email: form.value.email, 
-      password: form.value.password
-    });
-  }
+  // onSignUp(form: NgForm) {
+  //   this.authService.registerUser({
+  //     email: form.value.email, 
+  //     password: form.value.password
+  //   });
+  // }
   
   ngOnDestroy() {
     this.loadSubs.unsubscribe();
