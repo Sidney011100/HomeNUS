@@ -19,19 +19,20 @@ export class AnnouncementService {
     //   this.announcementData = a;
     //   this.dataChanged.next([...this.announcementData]);
     // });
-    this.database.collection('announcements').snapshotChanges()
-      .pipe(map(docArray => {
-        return docArray.map(document => {
-          return {
-            id: document.payload.doc.id,
-            ...document.payload.doc.data() as Announcement
-          }
-        })
-      }))
-      .subscribe((announcements: Announcement[]) => {
-        this.announcementData = announcements;
-        this.dataChanged.next([...this.announcementData]);
-      });
+    this.database.collection('announcements')
+                .snapshotChanges()
+                .pipe(map(docArray => {
+                  return docArray.map(document => {
+                    return {
+                      id: document.payload.doc.id,
+                      ...document.payload.doc.data() as Announcement
+                    };
+                  });
+                }))
+                .subscribe((announcements: Announcement[]) => {
+                  this.announcementData = announcements;
+                  this.dataChanged.next([...this.announcementData]);
+                });
   }
 
   addDataToDatabase(announcement: Announcement) {
@@ -40,7 +41,8 @@ export class AnnouncementService {
 
   deleteDataFromDatabase(announcement: Announcement) {
     // console.log(announcement.id);
-    this.aDoc = this.database.doc(`announcements/${announcement.id}`); // to get the specific announcement from the 'announcements'(collection) using the announcement id obtained thru snapshotchanges
+    this.aDoc = this.database.doc(`announcements/${announcement.id}`);
+    // to get the specific announcement from the 'announcements'(collection) using the announcement id obtained thru snapshotchanges
     this.aDoc.delete();
   }
 

@@ -22,17 +22,17 @@ export class AuthService {
     user$: Observable<User>;
 
     constructor(private router: Router,
-        private afAuth: AngularFireAuth,
-        private snackBar: MatSnackBar,
-        private uiService: UIService,
-        private database: AngularFirestore
+                private afAuth: AngularFireAuth,
+                private snackBar: MatSnackBar,
+                private uiService: UIService,
+                private database: AngularFirestore
     ) {
         this.user$ = this.afAuth.authState.pipe( // Get auth data, then get firestore user document || null
             switchMap(user => {
                 if (user) {
                     return this.database.doc<User>(`users/${user.uid}`).valueChanges();
                 } else {
-                    return of(null); //change 
+                    return of(null); //change
                 }
             })
         );
@@ -100,11 +100,11 @@ export class AuthService {
         return this.afAuth.auth.signInWithPopup(provider)
             .then(cred => {
                 this.updateUserData(cred.user);
-                console.log('You have been successfully logged in!')
+                console.log('You have been successfully logged in!');
             })
             .catch(error => {
-                this.uiService.showSnackBar(error.message, null, 3000)
-            })
+                this.uiService.showSnackBar(error.message, null, 3000);
+            });
     }
 
     logout() {
@@ -133,13 +133,13 @@ export class AuthService {
 
     // determines if user has matching role
     private checkAuthorization(user: User, allowedRoles: string[]): boolean {
-        if (!user) return false
+        if (!user) {return false; }
         for (const role of allowedRoles) {
             if (user.roles[role]) {
-                return true
+                return true;
             }
         }
-        return false
+        return false;
     }
 
     ///// Role-based Authorization //////

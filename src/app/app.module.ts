@@ -24,11 +24,13 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 import { environment } from '../environments/environment';
 import { HomeComponent } from './hallwelcome/home/home.component';
 import { CalendarComponent } from './hallwelcome/calendar/calendar.component';
+
 import { AddAnnouncementComponent } from './hallwelcome/home/add-announcement/add-announcement.component';
+import { AddBookingComponent } from './booking/add-booking/add-booking.component';
 
 
 import { MsalModule, MsalInterceptor } from '@azure/msal-angular';
-import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { UIService } from './shared/ui.service';
 
@@ -47,7 +49,8 @@ const isIE = window.navigator.userAgent.indexOf('MSIE ') > -1 || window.navigato
       BookingComponent,
       HomeComponent,
       CalendarComponent,
-      AddAnnouncementComponent
+      AddAnnouncementComponent, 
+      AddBookingComponent
    ],
    imports: [
       BrowserModule,

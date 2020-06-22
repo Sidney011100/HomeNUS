@@ -1,3 +1,39 @@
-<p>
-  booking works!
-</p>
+<div fxLayoutAlign="left center" >
+  <mat-form-field fxFlex="40%">
+      <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Filter">
+  </mat-form-field>
+</div>
+
+<div  class="addFacility">
+  <button mat-raised-button (click)="openModal()" *ngIf="auth.canEdit(user)">
+    <mat-icon>add</mat-icon>
+    <span>Add a facility</span>
+  </button>
+</div>
+
+<mat-table [dataSource]="dataSource" matSort>
+  <ng-container matColumnDef="name">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
+    <mat-cell *matCellDef="let element">
+      <a routerLink="/date-booking"><span>{{ element.name }}</span></a>
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="capacity">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Capacity</mat-header-cell>
+    <mat-cell *matCellDef="let element">{{ element.capacity | number }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="block">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Block</mat-header-cell>
+    <mat-cell *matCellDef="let element">{{ element.block }}</mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>
+
+<!-- <mat-paginator #paginator
+              [pageSize]="1"
+              [pageSizeOptions]="[5, 10, 25, 100]">
+</mat-paginator> -->

@@ -7,14 +7,15 @@ import { BookingComponent } from './booking/booking.component';
 import { AuthGuard } from './auth/auth.guard';
 
 import { MsalGuard } from '@azure/msal-angular';
+import { DateBookingComponent } from './booking/date-booking/date-booking.component';
 
 
 const routes: Routes = [
   {path: '', component: AuthComponent}, 
   {path: 'welcome', component: HallWelcomeComponent, canActivate: [AuthGuard]},
-  {path: 'booking', component: BookingComponent, canActivate: [AuthGuard]}, 
+  {path: 'booking', component: BookingComponent, canActivate: [AuthGuard]},
   { path: 'welcome', component: HallWelcomeComponent,canActivate: [MsalGuard]},
-  {path: '',component: AuthComponent}
+  {path: 'date-booking', component: DateBookingComponent}
 ];
 
 @NgModule({

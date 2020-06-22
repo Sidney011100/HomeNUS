@@ -1,10 +1,14 @@
-<button mat-raised-button (click)="openModal()" *ngIf="auth.canEdit(user)">
-    <mat-icon>add</mat-icon>
-</button>
+
+
 
 <h1><em>TH Announcements</em></h1>
-<hr>
-<p></p>
+
+<div class="addAnnouncement">
+    <button mat-raised-button (click)="openModal()" *ngIf="auth.canEdit(user)">
+        <mat-icon>add</mat-icon>
+        <span>Add an announcement</span>
+    </button>
+</div>
 
 <section class="announcement-board">
     <mat-card class="a-card" *ngFor="let a of announcements">
@@ -21,6 +25,7 @@
         <mat-card-actions>
             <button mat-raised-button color="primary" (click)="onEdit($event, a)" *ngIf="auth.canEdit(user)">
                 <mat-icon>edit</mat-icon>
+                <span>Edit</span>
             </button>
             <button mat-raised-button (click)="clearState()" *ngIf="editState && announcementToEdit.id === a.id">
                 <mat-icon>close</mat-icon>

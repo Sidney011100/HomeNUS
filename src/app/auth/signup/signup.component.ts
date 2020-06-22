@@ -12,9 +12,9 @@ import { Subscription } from 'rxjs';
 })
 export class SignupComponent implements OnInit, OnDestroy {
   isLoading = false;
-  private loadSubs: Subscription
+  private loadSubs: Subscription;
 
-  constructor(private authService: AuthService, 
+  constructor(private authService: AuthService,
               private uiService: UIService) { }
 
   ngOnInit() {
@@ -23,11 +23,11 @@ export class SignupComponent implements OnInit, OnDestroy {
 
   // onSignUp(form: NgForm) {
   //   this.authService.registerUser({
-  //     email: form.value.email, 
+  //     email: form.value.email,
   //     password: form.value.password
   //   });
   // }
-  
+
   ngOnDestroy() {
     this.loadSubs.unsubscribe();
   }
