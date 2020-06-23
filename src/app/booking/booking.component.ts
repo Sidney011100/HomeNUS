@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, AfterViewInit, OnDestroy  } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { Facility } from './facility.model';
 import { Observable } from 'rxjs';
 import { MatTableDataSource } from '@angular/material/table';
@@ -16,12 +16,13 @@ import { User } from 'src/app/auth/user.model';
   templateUrl: './booking.component.html',
   styleUrls: ['./booking.component.css']
 })
-export class BookingComponent implements OnInit, AfterViewInit {
-  dataChanged = new Subject<Facility[]>();
-  facilities: Observable<Facility[]>;
+export class BookingComponent implements OnInit, AfterViewInit, OnDestroy{
   dataSource = new MatTableDataSource<Facility>();
   displayedColumns = ['name', 'capacity', 'block'];
   user: User;
+  selectedFacility: Facility;
+  selectedDate: Date;
+  facilitySubs: Subscription;
 
 
   @ViewChild(MatSort) sort: MatSort;
@@ -42,6 +43,9 @@ export class BookingComponent implements OnInit, AfterViewInit {
     this.bookingService.fetchFacilitiesData();
     //should not be like this?
     this.auth.user$.subscribe(user => this.user = user);
+    this.bookingService.dateSelected.subscribe(chosenDate => {
+      this.selectedDate = chosenDate.date;
+    })
   }
 
   ngAfterViewInit() {
@@ -53,15 +57,15 @@ export class BookingComponent implements OnInit, AfterViewInit {
     this.dialog.open(AddBookingComponent);
   }
 
-  viewDates() {
-    //navigate to page DateBooking to view all avail dates
-    //pass name of facility selected into this function
+  facilityClicked(facility: string) {
+    this.selectedFacility = this.dataSource.data.filter(a => a.name === facility)[0];
+    this.bookingService.facilitySelected.next(this.selectedFacility);
   }
 
-  // ngOnDestroy() {
-  //   if(this.pastExercisesSubscription) {
-  //     this.pastExercisesSubscription.unsubscribe();
-  //   }
-  // }
+  ngOnDestroy() {
+    if(this.facilitySubs) {
+      this.facilitySubs.unsubscribe();
+    }
+  }
 
 }

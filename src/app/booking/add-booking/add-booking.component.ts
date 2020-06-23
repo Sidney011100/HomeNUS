@@ -10,6 +10,7 @@ import { BookingService } from '../booking.service';
   styleUrls: ['./add-booking.component.css']
 })
 export class AddBookingComponent implements OnInit {
+  min = 5;
 
   constructor(private bookingService: BookingService) { }
 
@@ -19,7 +20,7 @@ export class AddBookingComponent implements OnInit {
   onAdd(form: NgForm) {
     const announcement = {
       name: form.value.name,
-      block: form.value.block,
+      block: form.value.block.toUpperCase(),
       capacity: form.value.capacity
     };
     this.addDataToFirestore(announcement);
