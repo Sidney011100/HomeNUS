@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { Announcement } from '../announcement.model';
-import { Subject } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 @Injectable({
@@ -11,6 +11,7 @@ export class AnnouncementService {
   dataChanged = new Subject<Announcement[]>();
   announcementData: Announcement[];
   aDoc: AngularFirestoreDocument<Announcement>;
+  announcementSubscription: Subscription;
 
   constructor(private database: AngularFirestore) { }
 
@@ -19,7 +20,7 @@ export class AnnouncementService {
     //   this.announcementData = a;
     //   this.dataChanged.next([...this.announcementData]);
     // });
-    this.database.collection('announcements').snapshotChanges()
+    this.announcementSubscription = this.database.collection('announcements').snapshotChanges()
       .pipe(map(docArray => {
         return docArray.map(document => {
           return {
@@ -32,6 +33,10 @@ export class AnnouncementService {
         this.announcementData = announcements;
         this.dataChanged.next([...this.announcementData]);
       });
+  }
+
+  cancelSubscription() {
+    this.announcementSubscription.unsubscribe();
   }
 
   addDataToDatabase(announcement: Announcement) {

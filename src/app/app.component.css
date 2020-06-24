@@ -13,4 +13,12 @@ mat-sidenav {
 
 mat-sidenav-container, mat-sidenav, app-sidenav {
     height: 100%;
+    /* width: 100%; */
 }
+
+mat-sidenav-container {
+    background: #1a1a1a;
+    /* color: #DEB992; */
+    /* color: #1BA098; */
+}
+

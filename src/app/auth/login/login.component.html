@@ -1,17 +1,21 @@
 <section class="loginForm" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px">
-    <div class="formGroup" >
-        <button type="button" mat-raised-button color="primary" (click)="this.authService.microsoftAuth()" width="40px">
-          Log in with Microsoft
+    <div class="formGroup">
+        <button type="button" mat-raised-button color="primary" (click)="microsoftLogin()" width="40px">
+            <img src="../../../assets/images/microsoft-windows.svg" alt="google" class="google-icon">
+            Continue in with Microsoft
         </button>
-      </div>
+    </div>
 
     <div class="formGroup">
-        <button type="button" mat-raised-button color="primary" (click)="this.authService.googleAuth()" width="40px">
-          Log in with Google
+        <button type="button" mat-raised-button color="primary" (click)="googleLogin()" width="40px">
+            <img src="../../../assets/images/google-color.svg" alt="google" class="google-icon">
+            Continue in with Google
         </button>
-      </div>
+    </div>
+    
+    
 
-  <!-- <form fxLayout="column" 
+    <!-- <form fxLayout="column" 
       fxLayoutAlign="center center" 
           fxLayoutGap="10px"
           [formGroup]="loginForm"

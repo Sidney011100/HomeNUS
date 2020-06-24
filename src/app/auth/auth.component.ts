@@ -16,7 +16,7 @@ export class AuthComponent implements OnInit, OnDestroy {
   constructor(private uiService: UIService) { }
 
   ngOnInit() {
-    this.registerCalledSubs = this.uiService.regsterUserCalled.subscribe(state => 
+    this.registerCalledSubs = this.uiService.registerUserCalled.subscribe(state => 
       this.registerUserCalled = state);
     this.loginCalledSubs = this.uiService.loginCalled.subscribe(state => this.loginCalled = state);
   }
