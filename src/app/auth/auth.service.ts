@@ -24,18 +24,11 @@ export class AuthService {
     user$: Observable<User>;
 
     constructor(private router: Router,
-<<<<<<< HEAD
         private afAuth: AngularFireAuth,
         private snackBar: MatSnackBar,
         private uiService: UIService,
         private database: AngularFirestore,
         private announcementService: AnnouncementService
-=======
-                private afAuth: AngularFireAuth,
-                private snackBar: MatSnackBar,
-                private uiService: UIService,
-                private database: AngularFirestore
->>>>>>> fb7a622436b56f67251986eb0c51fe81b0f7e30b
     ) {
         this.user$ = this.afAuth.authState.pipe( // Get auth data, then get firestore user document || null
             switchMap(user => {
@@ -106,19 +99,6 @@ export class AuthService {
     //     return this.authLogin(new auth.OAuthProvider('microsoft.com'));
     // }
 
-<<<<<<< HEAD
-    // authLogin(provider) {
-    //     return this.afAuth.auth.signInWithPopup(provider)
-    //         .then(cred => {
-    //             //console.log(cred.user.email)
-    //             this.updateUserData(cred.user);
-    //             console.log('You have been successfully logged in!')
-    //         })
-    //         .catch(error => {
-    //             this.uiService.showSnackBar(error.message, null, 3000)
-    //         })
-    // }
-=======
     authLogin(provider) {
         return this.afAuth.auth.signInWithPopup(provider)
             .then(cred => {
@@ -129,7 +109,6 @@ export class AuthService {
                 this.uiService.showSnackBar(error.message, null, 3000);
             });
     }
->>>>>>> fb7a622436b56f67251986eb0c51fe81b0f7e30b
 
     signInWithPopup(provider: { providerId: string }) {
 		return this.afAuth.auth.signInWithPopup(provider);
@@ -177,13 +156,8 @@ export class AuthService {
     }
 
     // determines if user has matching role
-<<<<<<< HEAD
-    private checkAuthorization(user: User, allowedRoles: string[]): boolean { //good
-        if (!user) return false
-=======
     private checkAuthorization(user: User, allowedRoles: string[]): boolean {
         if (!user) {return false; }
->>>>>>> fb7a622436b56f67251986eb0c51fe81b0f7e30b
         for (const role of allowedRoles) {
             if (user.roles[role]) {
                 return true;
