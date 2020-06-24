@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Subject, Observable, of } from 'rxjs';
+import { Subject, Observable, of, Subscription } from 'rxjs';
 import { AngularFireAuth } from 'angularfire2/auth';
-import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore';
+
 import { AuthData } from './auth-data.model';
 import { auth } from 'firebase';
 import { switchMap } from 'rxjs/operators';
@@ -12,6 +12,8 @@ import '@firebase/auth';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { UIService } from '../shared/ui.service';
 import { User } from './user.model';
+import { AnnouncementService } from '../hallwelcome/home/announcement.service';
+import { AngularFirestoreCollection, AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore';
 
 
 
@@ -22,10 +24,18 @@ export class AuthService {
     user$: Observable<User>;
 
     constructor(private router: Router,
+<<<<<<< HEAD
+        private afAuth: AngularFireAuth,
+        private snackBar: MatSnackBar,
+        private uiService: UIService,
+        private database: AngularFirestore,
+        private announcementService: AnnouncementService
+=======
                 private afAuth: AngularFireAuth,
                 private snackBar: MatSnackBar,
                 private uiService: UIService,
                 private database: AngularFirestore
+>>>>>>> fb7a622436b56f67251986eb0c51fe81b0f7e30b
     ) {
         this.user$ = this.afAuth.authState.pipe( // Get auth data, then get firestore user document || null
             switchMap(user => {
@@ -88,14 +98,27 @@ export class AuthService {
     //         })
     // }
 
-    googleAuth() {
-        return this.authLogin(new auth.GoogleAuthProvider());
-    }
+    // googleAuth() {
+    //     return this.authLogin(new auth.GoogleAuthProvider());
+    // }
 
-    microsoftAuth() {
-        return this.authLogin(new auth.OAuthProvider('microsoft.com'));
-    }
+    // microsoftAuth() {
+    //     return this.authLogin(new auth.OAuthProvider('microsoft.com'));
+    // }
 
+<<<<<<< HEAD
+    // authLogin(provider) {
+    //     return this.afAuth.auth.signInWithPopup(provider)
+    //         .then(cred => {
+    //             //console.log(cred.user.email)
+    //             this.updateUserData(cred.user);
+    //             console.log('You have been successfully logged in!')
+    //         })
+    //         .catch(error => {
+    //             this.uiService.showSnackBar(error.message, null, 3000)
+    //         })
+    // }
+=======
     authLogin(provider) {
         return this.afAuth.auth.signInWithPopup(provider)
             .then(cred => {
@@ -106,20 +129,42 @@ export class AuthService {
                 this.uiService.showSnackBar(error.message, null, 3000);
             });
     }
+>>>>>>> fb7a622436b56f67251986eb0c51fe81b0f7e30b
 
-    logout() {
+    signInWithPopup(provider: { providerId: string }) {
+		return this.afAuth.auth.signInWithPopup(provider);
+    }
+    
+    async googleLogin(): Promise<any> {
+		const provider = new firebase.auth.GoogleAuthProvider();
+		const credential = await this.signInWithPopup(provider);
+		//console.log(credential.user.email)
+		return this.updateUserData(credential.user);
+	}
+
+	async microsoftLogin(): Promise<any> {
+		const provider = new firebase.auth.OAuthProvider('microsoft.com');
+		provider.setCustomParameters({
+			login_hint: 'user@firstadd.onmicrosoft.com',
+		});
+		const credential = await this.signInWithPopup(provider);
+		return this.updateUserData(credential.user);
+	}
+
+    logout() { //good
+        this.announcementService.cancelSubscription();
         this.afAuth.auth.signOut()
             .catch(error => {
                 console.log(error);
             });
     }
 
-    isAuth() {
+    isAuth() { //good
         return this.isAuthenticated;
     }
 
     // Sets user data to firestore on login
-    private updateUserData(user) {
+    private updateUserData(user) { //good
         const userRef: AngularFirestoreDocument<any> = this.database.doc(`users/${user.uid}`);
         const data: User = {
             userId: user.uid,
@@ -132,8 +177,13 @@ export class AuthService {
     }
 
     // determines if user has matching role
+<<<<<<< HEAD
+    private checkAuthorization(user: User, allowedRoles: string[]): boolean { //good
+        if (!user) return false
+=======
     private checkAuthorization(user: User, allowedRoles: string[]): boolean {
         if (!user) {return false; }
+>>>>>>> fb7a622436b56f67251986eb0c51fe81b0f7e30b
         for (const role of allowedRoles) {
             if (user.roles[role]) {
                 return true;

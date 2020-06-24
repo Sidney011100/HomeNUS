@@ -8,6 +8,9 @@ import { MaterialModule } from './material.module';
 import { HallWelcomeComponent } from './hallwelcome/hallwelcome.component';
 import { FlexLayoutModule} from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AngularFireModule } from 'angularfire2';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { AngularFireAuthModule } from 'angularfire2/auth';
 
 import { SignupComponent } from './auth/signup/signup.component';
 import { LoginComponent } from './auth/login/login.component';
@@ -18,9 +21,6 @@ import { SidenavComponent } from './navigation/sidenav/sidenav.component';
 import { BookingComponent } from './booking/booking.component';
 import { AuthService } from './auth/auth.service';
 
-import { AngularFireModule } from 'angularfire2';
-import { AngularFirestoreModule } from 'angularfire2/firestore';
-import { AngularFireAuthModule } from 'angularfire2/auth';
 import { environment } from '../environments/environment';
 import { HomeComponent } from './hallwelcome/home/home.component';
 import { CalendarComponent } from './hallwelcome/calendar/calendar.component';
@@ -29,7 +29,6 @@ import { AddAnnouncementComponent } from './hallwelcome/home/add-announcement/ad
 import { AddBookingComponent } from './booking/add-booking/add-booking.component';
 import { DateBookingComponent } from './booking/date-booking/date-booking.component';
 import { TimeBookingComponent } from './booking/time-booking/time-booking.component';
-
 
 import { MsalModule, MsalInterceptor } from '@azure/msal-angular';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';

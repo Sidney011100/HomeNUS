@@ -19,6 +19,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   announcementToEdit: Announcement;
 
   user: User;
+  userSubscription: Subscription;
 
   constructor(
     private dialog: MatDialog,
@@ -30,11 +31,12 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.announcementSubscription = this.announcementService.dataChanged.subscribe(a => this.announcements = a);
     this.announcementService.fetchData();
 
-    this.auth.user$.subscribe(user => this.user = user);
+    this.userSubscription = this.auth.user$.subscribe(user => this.user = user);
   }
 
   ngOnDestroy() {
     this.announcementSubscription.unsubscribe();
+    this.userSubscription.unsubscribe();
   }
 
   openModal() {

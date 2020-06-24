@@ -1,8 +1,28 @@
 mat-icon {
-    padding: 10px;
+    margin-right: 10px;
 }
 
 app-calendar {
     width: 100%;
 }
 
+.mat-tab-label {
+    min-width: 25px !important;
+    padding: 5px;
+    background-color: transparent;
+    color: #DEB992;
+    font-weight: 700;
+}
+
+/* Styles for the active tab label */
+.mat-tab-label.mat-tab-label-active {
+    min-width: 25px !important;
+    padding: 5px;
+    background-color: transparent;
+    color: #DEB992;
+    font-weight: 700;
+}
+
+.mat-tab-group.mat-primary .mat-ink-bar, .mat-tab-nav-bar.mat-primary .mat-ink-bar {
+    background-color: #DEB992;
+}

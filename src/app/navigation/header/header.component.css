@@ -1,6 +1,6 @@
 a {
     text-decoration: none;
-    color: #035aa6;
+    color: #deb992;
 }
 
  a:hover, a:active {
@@ -16,6 +16,10 @@ a {
     padding: 6px;
 }
 
-.logo {
-    color: #035aa6;
+.mat-toolbar {
+    background: #141414;
+}
+
+.mat-icon {
+    color: #deb992;
 }

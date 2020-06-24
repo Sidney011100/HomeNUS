@@ -1,5 +1,8 @@
-h1 {
+h2 {
     text-align: center;
+    color: #deb992;
+    font-size: 1.2em;
+    padding: 20px 20px 0px 20px;
 }
 
 mat-card-title {
@@ -16,7 +19,39 @@ mat-card-title {
 
 mat-card-content {
     line-height: 20px;
+    color: #dbccbc;
 }
+
+mat-card-content {
+    /* text-shadow: 5px 5px #E9E9E9; */
+}
+
+.divider {
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    height: 1px;
+    width: 70%;
+    background-color: #deb992;
+}
+
+.mat-card {
+    background-color: #deb992;
+    background: transparent;
+    color: #deb992;
+}
+
+button {
+    background-color: #deb992;
+    border-radius: 50%;
+}
+
+.edit-btn {
+    position: relative;
+    margin-left: 100px;
+}
+
 
 .addAnnouncement {
     padding-left: 20px;

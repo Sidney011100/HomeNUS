@@ -42,4 +42,13 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.loadSubs.unsubscribe();
   }
 
+  googleLogin() {
+    this.authService.googleLogin();
+  }
+
+  microsoftLogin() {
+    this.authService.microsoftLogin();
+  }
+
+
 }

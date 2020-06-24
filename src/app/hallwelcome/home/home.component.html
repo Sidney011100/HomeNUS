@@ -1,7 +1,6 @@
+<h2>Announcements</h2>
 
-
-
-<h1><em>TH Announcements</em></h1>
+<div class="divider" style="z-index: 1000;"></div>
 
 <div class="addAnnouncement">
     <button mat-raised-button (click)="openModal()" *ngIf="auth.canEdit(user)">
@@ -23,7 +22,7 @@
         </mat-card-content>
 
         <mat-card-actions>
-            <button mat-raised-button color="primary" (click)="onEdit($event, a)" *ngIf="auth.canEdit(user)">
+            <button class="edit-btn" mat-raised-button (click)="onEdit($event, a)" *ngIf="auth.canEdit(user)">
                 <mat-icon>edit</mat-icon>
                 <span>Edit</span>
             </button>
@@ -51,3 +50,7 @@
 
     </mat-card>
 </section>
+
+<button class="add-btn" mat-raised-button (click)="openModal()" *ngIf="auth.canEdit(user)">
+    <mat-icon>add</mat-icon>
+</button>
