@@ -1,13 +1,16 @@
+
 <div>
-  <form #f="ngForm" (ngSubmit)="confirmClicked()">
-    <mat-form-field>
-      <mat-label>Select a timing</mat-label>
+  <form #f="ngForm" (ngSubmit)="makeBooking()" fxLayoutAlign="center center" *ngIf="selectedDate" fxLayout="column" color="accent">
+    <mat-form-field color="white">
+      <mat-label >Select a timing for {{ dateId }}</mat-label>
       <mat-select [(value)]="selected" [disabled]="disableSelect.value">
         <mat-option *ngFor="let timing of timingArray" [value]="timing" [disabled]="timing.booked">
           {{ timing.name }}
         </mat-option>
       </mat-select>
     </mat-form-field>
-    <button mat-button type="submit">Confirm Booking</button>
+    <button mat-raised-button type="submit" color="accent">Make Booking</button>
   </form>
 </div>
+
+<!-- {{ selectedDate.toDate() | date: 'EEEE dd/MM' }}  -->

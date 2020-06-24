@@ -29,11 +29,13 @@ import { AddAnnouncementComponent } from './hallwelcome/home/add-announcement/ad
 import { AddBookingComponent } from './booking/add-booking/add-booking.component';
 import { DateBookingComponent } from './booking/date-booking/date-booking.component';
 import { TimeBookingComponent } from './booking/time-booking/time-booking.component';
+import { ConfirmBookingComponent } from './booking/time-booking/confirm-booking/confirm-booking.component';
 
 import { MsalModule, MsalInterceptor } from '@azure/msal-angular';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { UIService } from './shared/ui.service';
+import { ManageBookingsComponent } from './manage-bookings/manage-bookings.component';
 
 const isIE = window.navigator.userAgent.indexOf('MSIE ') > -1 || window.navigator.userAgent.indexOf('Trident/') > -1;
 
@@ -53,7 +55,9 @@ const isIE = window.navigator.userAgent.indexOf('MSIE ') > -1 || window.navigato
       AddAnnouncementComponent,
       AddBookingComponent,
       DateBookingComponent,
-      TimeBookingComponent
+      TimeBookingComponent,
+      ConfirmBookingComponent,
+      ManageBookingsComponent
    ],
    imports: [
       BrowserModule,
@@ -67,39 +71,39 @@ const isIE = window.navigator.userAgent.indexOf('MSIE ') > -1 || window.navigato
       AngularFirestoreModule,
       AngularFireAuthModule,
       MsalModule.forRoot({
-      auth: {
-        clientId: 'api://231b15e8-1f83-4869-a953-2092ef852bec', // This is your client ID
-        authority: 'https://login.microsoftonline.com', // This is your tenant ID
-        redirectUri: 'http://localhost:4200'// This is your redirect URI
-      },
-      cache: {
-        cacheLocation: 'localStorage',
-        storeAuthStateInCookie: isIE, // Set to true for Internet Explorer 11
-      },
-    }, {
-      popUp: !isIE,
-      consentScopes: [
-        'user.read',
-        'openid',
-        'profile',
-        'welcome',
-        'booking'
+         auth: {
+           clientId: 'api://231b15e8-1f83-4869-a953-2092ef852bec', // This is your client ID
+           authority: 'https://login.microsoftonline.com', // This is your tenant ID
+           redirectUri: 'http://localhost:4200'// This is your redirect URI
+         },
+         cache: {
+           cacheLocation: 'localStorage',
+           storeAuthStateInCookie: isIE, // Set to true for Internet Explorer 11
+         },
+       }, {
+         popUp: !isIE,
+         consentScopes: [
+           'user.read',
+           'openid',
+           'profile',
+           'welcome',
+           'booking'
+         ],
+         unprotectedResources: [],
+         protectedResourceMap: [
+           ['https://graph.microsoft.com/v1.0/me', ['user.read']]
+         ],
+         extraQueryParameters: {}
+       })
+     ],
+      providers: [AuthService,
+                  {
+                     provide: HTTP_INTERCEPTORS,
+                     useClass: MsalInterceptor,
+                     multi: true },
+                  UIService
       ],
-      unprotectedResources: [],
-      protectedResourceMap: [
-        ['https://graph.microsoft.com/v1.0/me', ['user.read']]
-      ],
-      extraQueryParameters: {}
-    })
-  ],
-   providers: [AuthService,
-               {
-                  provide: HTTP_INTERCEPTORS,
-                  useClass: MsalInterceptor,
-                  multi: true },
-               UIService
-   ],
    bootstrap: [AppComponent],
-   entryComponents:[AddAnnouncementComponent]
+   entryComponents:[ AddAnnouncementComponent, ConfirmBookingComponent]
 })
 export class AppModule { }

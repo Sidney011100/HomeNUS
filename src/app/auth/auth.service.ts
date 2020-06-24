@@ -24,11 +24,11 @@ export class AuthService {
     user$: Observable<User>;
 
     constructor(private router: Router,
-        private afAuth: AngularFireAuth,
-        private snackBar: MatSnackBar,
-        private uiService: UIService,
-        private database: AngularFirestore,
-        private announcementService: AnnouncementService
+                private afAuth: AngularFireAuth,
+                private snackBar: MatSnackBar,
+                private uiService: UIService,
+                private database: AngularFirestore,
+                private announcementService: AnnouncementService
     ) {
         this.user$ = this.afAuth.authState.pipe( // Get auth data, then get firestore user document || null
             switchMap(user => {
@@ -48,7 +48,7 @@ export class AuthService {
                 this.authChange.next(true);
                 this.router.navigate(['/welcome']);
             } else {
-                //need to cancel Subscriptions from other places here
+                // need to cancel Subscriptions from other places here
                 this.isAuthenticated = false;
                 this.authChange.next(false);
                 this.router.navigate(['/']);
@@ -103,6 +103,7 @@ export class AuthService {
         return this.afAuth.auth.signInWithPopup(provider)
             .then(cred => {
                 this.updateUserData(cred.user);
+                console.log(this.user$);
                 console.log('You have been successfully logged in!');
             })
             .catch(error => {
@@ -111,24 +112,24 @@ export class AuthService {
     }
 
     signInWithPopup(provider: { providerId: string }) {
-		return this.afAuth.auth.signInWithPopup(provider);
+        return this.afAuth.auth.signInWithPopup(provider);
     }
-    
-    async googleLogin(): Promise<any> {
-		const provider = new firebase.auth.GoogleAuthProvider();
-		const credential = await this.signInWithPopup(provider);
-		//console.log(credential.user.email)
-		return this.updateUserData(credential.user);
-	}
 
-	async microsoftLogin(): Promise<any> {
-		const provider = new firebase.auth.OAuthProvider('microsoft.com');
-		provider.setCustomParameters({
-			login_hint: 'user@firstadd.onmicrosoft.com',
-		});
-		const credential = await this.signInWithPopup(provider);
-		return this.updateUserData(credential.user);
-	}
+    async googleLogin(): Promise<any> {
+        const provider = new firebase.auth.GoogleAuthProvider();
+        const credential = await this.signInWithPopup(provider);
+        // console.log(credential.user.email)
+        return this.updateUserData(credential.user);
+    }
+
+    async microsoftLogin(): Promise<any> {
+        const provider = new firebase.auth.OAuthProvider('microsoft.com');
+        provider.setCustomParameters({
+            login_hint: 'user@firstadd.onmicrosoft.com',
+        });
+        const credential = await this.signInWithPopup(provider);
+        return this.updateUserData(credential.user);
+    }
 
     logout() { //good
         this.announcementService.cancelSubscription();
@@ -152,6 +153,7 @@ export class AuthService {
                 member: true
             }
         };
+        console.log(this.user$);
         return userRef.set(data, { merge: true });
     }
 
@@ -169,18 +171,18 @@ export class AuthService {
     ///// Role-based Authorization //////
 
     canRead(user: User): boolean {
-        const allowed = ['admin', 'member']
-        return this.checkAuthorization(user, allowed)
+        const allowed = ['admin', 'member'];
+        return this.checkAuthorization(user, allowed);
     }
 
     canEdit(user: User): boolean {
-        const allowed = ['admin']
-        return this.checkAuthorization(user, allowed)
+        const allowed = ['admin'];
+        return this.checkAuthorization(user, allowed);
     }
 
     canDelete(user: User): boolean {
-        const allowed = ['admin']
-        return this.checkAuthorization(user, allowed)
+        const allowed = ['admin'];
+        return this.checkAuthorization(user, allowed);
     }
 
     ///// End of Role-based Authorization //////
