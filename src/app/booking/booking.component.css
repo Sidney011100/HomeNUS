@@ -1,0 +1,12 @@
+div {
+    padding-left: 10px;
+
+}
+
+.addFacility {
+    padding-bottom: 10px;
+}
+
+mat-cell a:hover, mat-cell a:active {
+    color: lightyellow;
+}

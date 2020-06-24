@@ -45,7 +45,8 @@ export class AnnouncementService {
 
   deleteDataFromDatabase(announcement: Announcement) {
     // console.log(announcement.id);
-    this.aDoc = this.database.doc(`announcements/${announcement.id}`); // to get the specific announcement from the 'announcements'(collection) using the announcement id obtained thru snapshotchanges
+    this.aDoc = this.database.doc(`announcements/${announcement.id}`);
+    // to get the specific announcement from the 'announcements'(collection) using the announcement id obtained thru snapshotchanges
     this.aDoc.delete();
   }
 

@@ -13,40 +13,54 @@ import { MatCardModule } from '@angular/material/card';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDialogModule } from '@angular/material/dialog';
-
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatSliderModule } from '@angular/material/slider';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
     imports: [
         MatSidenavModule,
-        MatButtonModule, 
-        MatFormFieldModule, 
+        MatButtonModule,
+        MatFormFieldModule,
         MatInputModule,
-        MatIconModule, 
-        MatToolbarModule, 
-        MatListModule,
-        MatTabsModule,
-        MatTableModule,
-        MatCardModule, 
-        MatSnackBarModule, 
-        MatProgressSpinnerModule,
-        MatCardModule,
-        MatDialogModule
-        ], 
-    exports: [
-        MatSidenavModule, 
-        MatButtonModule, 
-        MatFormFieldModule, 
-        MatInputModule, 
         MatIconModule,
         MatToolbarModule,
         MatListModule,
         MatTabsModule,
         MatTableModule,
-        MatCardModule, 
-        MatSnackBarModule, 
+        MatCardModule,
+        MatSnackBarModule,
         MatProgressSpinnerModule,
         MatCardModule,
-        MatDialogModule
+        MatDialogModule,
+        MatSortModule,
+        MatPaginatorModule,
+        MatGridListModule,
+        MatSliderModule,
+        MatSelectModule
+        ],
+    exports: [
+        MatSidenavModule,
+        MatButtonModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatIconModule,
+        MatToolbarModule,
+        MatListModule,
+        MatTabsModule,
+        MatTableModule,
+        MatCardModule,
+        MatSnackBarModule,
+        MatProgressSpinnerModule,
+        MatCardModule,
+        MatDialogModule,
+        MatSortModule,
+        MatPaginatorModule,
+        MatGridListModule,
+        MatSliderModule,
+        MatSelectModule
         ]
 })
 

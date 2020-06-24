@@ -1,0 +1,13 @@
+<div>
+  <form #f="ngForm" (ngSubmit)="confirmClicked()">
+    <mat-form-field>
+      <mat-label>Select a timing</mat-label>
+      <mat-select [(value)]="selected" [disabled]="disableSelect.value">
+        <mat-option *ngFor="let timing of timingArray" [value]="timing" [disabled]="timing.booked">
+          {{ timing.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button mat-button type="submit">Confirm Booking</button>
+  </form>
+</div>

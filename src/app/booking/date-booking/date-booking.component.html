@@ -1,0 +1,9 @@
+<mat-grid-list cols="4" rowHeight="2:1" >
+  <mat-grid-tile *ngFor="let element of displayDates">
+    <button mat-raised-button width="100px" (click)="dateClicked(element.date)">
+      {{ element.date.seconds * 1000 | date: 'dd.MM'}}
+    </button>
+  </mat-grid-tile>
+</mat-grid-list>
+
+

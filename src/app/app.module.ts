@@ -24,10 +24,14 @@ import { AuthService } from './auth/auth.service';
 import { environment } from '../environments/environment';
 import { HomeComponent } from './hallwelcome/home/home.component';
 import { CalendarComponent } from './hallwelcome/calendar/calendar.component';
+
 import { AddAnnouncementComponent } from './hallwelcome/home/add-announcement/add-announcement.component';
+import { AddBookingComponent } from './booking/add-booking/add-booking.component';
+import { DateBookingComponent } from './booking/date-booking/date-booking.component';
+import { TimeBookingComponent } from './booking/time-booking/time-booking.component';
 
 import { MsalModule, MsalInterceptor } from '@azure/msal-angular';
-import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { UIService } from './shared/ui.service';
 
@@ -46,7 +50,10 @@ const isIE = window.navigator.userAgent.indexOf('MSIE ') > -1 || window.navigato
       BookingComponent,
       HomeComponent,
       CalendarComponent,
-      AddAnnouncementComponent
+      AddAnnouncementComponent,
+      AddBookingComponent,
+      DateBookingComponent,
+      TimeBookingComponent
    ],
    imports: [
       BrowserModule,
@@ -55,10 +62,10 @@ const isIE = window.navigator.userAgent.indexOf('MSIE ') > -1 || window.navigato
       MaterialModule,
       FlexLayoutModule,
       FormsModule,
-      ReactiveFormsModule, 
-      AngularFireModule.initializeApp(environment.firebase), 
-      AngularFirestoreModule, 
-      AngularFireAuthModule, 
+      ReactiveFormsModule,
+      AngularFireModule.initializeApp(environment.firebase),
+      AngularFirestoreModule,
+      AngularFireAuthModule,
       MsalModule.forRoot({
       auth: {
         clientId: 'api://231b15e8-1f83-4869-a953-2092ef852bec', // This is your client ID

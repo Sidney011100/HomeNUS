@@ -1,0 +1,19 @@
+<h2>Add a facility to manage</h2>
+<div class="add-booking-form" fxLayout="column" fxLayoutAlign="center">
+    <form #f="ngForm" (ngSubmit)="onAdd(f)" ng-min="min">
+        <mat-form-field appearance="outline">
+            <mat-label>Facility Name</mat-label>
+            <input matInput type="text" ngModel name="name" required>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Capacity</mat-label>
+            <!-- <mat-slider matInput type="number" min="5" max="100" step="5" ngModel name="capacity" thumbLabel></mat-slider> -->
+            <input matInput type="number" ngModel name="capacity"  min="5" max="100" required>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Block</mat-label>
+          <input matInput type="text" ngModel name="block" required>
+      </mat-form-field>
+        <button type="submit" class="add" mat-raised-button mat-dialog-close [disabled]="f.invalid">Add</button>
+    </form>
+</div>

@@ -16,10 +16,10 @@ export class AddAnnouncementComponent implements OnInit {
   }
 
   onAdd(form: NgForm) {
-    let announcement = {
+    const announcement = {
       title: form.value.title,
       description: form.value.description
-    }
+    };
     this.addDataToFirestore(announcement);
   }
 
