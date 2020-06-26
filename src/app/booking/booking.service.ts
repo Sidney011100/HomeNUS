@@ -1,9 +1,12 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
-import { Subject } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { Facility } from './facility.model';
 import { map } from 'rxjs/operators';
 import { SelectedDate } from './selectedDate.model';
+import { AuthService } from '../auth/auth.service';
+import { User } from '../auth/user.model';
+import { Booking } from './booking.model';
 
 @Injectable({
   providedIn: 'root'
@@ -14,10 +17,24 @@ export class BookingService {
   facilityId = new Subject<string>();
   dateSelected = new Subject<SelectedDate>();
   facilities: Facility[];
+  user: User;
+  userSubscription: Subscription;
+  myBookingSubscription: Subscription;
+  myBookingSubject = new Subject<Booking[]>();
+  myBookings: Booking[];
+  pendingBookingSubscription: Subscription;
+  pendingSubject = new Subject<Booking[]>();
+  pendingBookings : Booking[];
+  fetchDatesSubscription: Subscription;
+  cancelBookingInUsersSub: Subscription;
+  cancelBookingInBookingsSub: Subscription;
+  cancelBookingInFacilitiesSub: Subscription;
 
-  constructor(private database: AngularFirestore) { }
+  constructor(private database: AngularFirestore,
+              private authService: AuthService) { }
 
 
+    // for users to view all facilities and make a booking, called in BookingComponent //
     fetchFacilitiesData() {
         this.database.collection('facilities')
                     .valueChanges()
@@ -26,6 +43,7 @@ export class BookingService {
                     });
     }
 
+    // when admin adds a new Facility //
     addDataToDatabase(facility: Facility) {
         this.database.collection('facilities').add(facility)
           .then(documentReference => {
@@ -45,6 +63,27 @@ export class BookingService {
           });
     }
 
+    // for user to view all their bookings, called in MyBookingsCompoenent //
+    fetchMyBookings(userId: string) {
+      this.myBookingSubscription = this.database.collection('users').doc(userId).collection('bookings')
+        .valueChanges()
+        .subscribe((bookings: Booking[]) => {
+          this.myBookings = bookings;
+          this.myBookingSubject.next([...this.myBookings]);
+        });
+    }
+
+    // for admin to fetch all bookings made //
+    fetchPendingBookings() {
+      this.pendingBookingSubscription = this.database.collection('bookings')
+        .valueChanges()
+        .subscribe((bookings: Booking[]) => {
+          this.pendingBookings = bookings;
+          this.pendingSubject.next([...this.pendingBookings]);
+        })
+    }
+
+
     setTwentyFourHourClock(number: number) {
       return number < 10 ? '0' + number + '00' : number + '00';
     }
@@ -52,5 +91,55 @@ export class BookingService {
     setTimeRange(number: number) {
       return `${this.setTwentyFourHourClock(number)} - ${this.setTwentyFourHourClock(number + 1)}`;
     }
+
+    // when a user cancels their booking: called in myBookingComponent //
+    userCancelledBooking(element: Booking) {
+      // remove from user's collection of bookings
+      this.cancelBookingInUsersSub = this.database.collection('users').doc(element.userId)
+                  .collection('bookings')
+                  .snapshotChanges()
+                  .pipe(map(docArray => {
+                    const docId = docArray.filter(doc =>
+                      // tslint:disable-next-line:no-unused-expression
+                      doc.payload.doc.data()['facilityId'] === element.facilityId &&
+                      doc.payload.doc.data()['dateId'] === element.dateId &&
+                      doc.payload.doc.data()['timeId'] === element.timeId
+                    );
+                    console.log(docId.length);
+                    return docId[0].payload.doc.id;
+                  }))
+                  .subscribe(id => this.database.collection('users').doc(element.userId)
+                            .collection('bookings').doc(id).delete()
+                  );
+      // remove from collection of bookings made
+      this.cancelBookingInBookingsSub = this.database.collection('bookings')
+                  .snapshotChanges()
+                  .pipe(map(docArray => {
+                    const cancelledBooking = docArray.filter(doc =>{
+                      // tslint:disable-next-line:no-unused-expression
+                      return doc.payload.doc.data()['facilityId'] === element.facilityId &&
+                      doc.payload.doc.data()['dateId'] === element.dateId &&
+                      doc.payload.doc.data()['timeId'] === element.timeId;
+                    });
+                    return cancelledBooking[0].payload.doc.id;
+                  }))
+                  .subscribe(docId =>
+                    this.database.collection('bookings').doc(docId).delete()
+                    );
+      // update in collection of facilities, dates, timings
+      this.database.collection('facilities').doc(element.facilityId)
+                  .collection('dates').doc(element.dateId)
+                  .collection('timings').doc(element.timeId)
+                  .update({booked: false});
+     }
+
+     cancelSubscriptions() {
+        this.userSubscription.unsubscribe();
+        this.myBookingSubscription.unsubscribe();
+        this.pendingBookingSubscription.unsubscribe();
+        this.cancelBookingInUsersSub.unsubscribe();
+        this.cancelBookingInBookingsSub.unsubscribe();
+     }
+
 }
 

@@ -8,6 +8,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
                 <p>Facility: {{ passedData.facility }}</p>
                 <p>Date: {{ passedData.date.seconds * 1000 | date: 'EEEE dd/MM' }}</p>
                 <p>Time: {{ passedData.timing }}</p>
+                <p>Your NusNetID: {{ passedData.nusNetId }}</p>
               </mat-dialog-content>
               <mat-dialog-actions>
                   <button mat-button [mat-dialog-close]="true">Yes</button>

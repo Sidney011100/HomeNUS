@@ -8,21 +8,22 @@ import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { AddBookingComponent } from './add-booking/add-booking.component';
 import { MatDialog } from '@angular/material/dialog';
-import { AuthService } from '../auth/auth.service';
 import { User } from 'src/app/auth/user.model';
+import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'app-booking',
   templateUrl: './booking.component.html',
   styleUrls: ['./booking.component.css']
 })
-export class BookingComponent implements OnInit, AfterViewInit, OnDestroy{
+export class BookingComponent implements OnInit, AfterViewInit, OnDestroy {
   dataSource = new MatTableDataSource<Facility>();
   displayedColumns = ['name', 'capacity', 'block'];
   user: User;
   selectedFacility: Facility;
   selectedDate: Date;
   facilitySubs: Subscription;
+  userSubscription: Subscription;
 
 
   @ViewChild(MatSort) sort: MatSort;
@@ -37,15 +38,14 @@ export class BookingComponent implements OnInit, AfterViewInit, OnDestroy{
   }
 
   ngOnInit() {
+    this.bookingService.fetchFacilitiesData();
     this.bookingService.facilityAdded.subscribe((facilities: Facility[]) => {
       this.dataSource.data = facilities;
     });
-    this.bookingService.fetchFacilitiesData();
-    //should not be like this?
-    this.auth.user$.subscribe(user => this.user = user);
+    this.userSubscription = this.auth.user$.subscribe(user => this.user = user);
     this.bookingService.dateSelected.subscribe(chosenDate => {
       this.selectedDate = chosenDate.date;
-    })
+    });
   }
 
   ngAfterViewInit() {
@@ -63,8 +63,11 @@ export class BookingComponent implements OnInit, AfterViewInit, OnDestroy{
   }
 
   ngOnDestroy() {
-    if(this.facilitySubs) {
+    if (this.facilitySubs) {
       this.facilitySubs.unsubscribe();
+    }
+    if (this.userSubscription) {
+      this.userSubscription.unsubscribe();
     }
   }
 

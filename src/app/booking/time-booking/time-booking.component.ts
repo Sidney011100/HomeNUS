@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, OnChanges } from '@angular/core';
-import { NgForm, FormControl } from '@angular/forms';
+import { NgForm, FormControl, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
@@ -7,7 +7,7 @@ import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { BookingService } from '../booking.service';
-import { Timing } from '../time-booking/timing.model';
+import { Timing } from './timing.model';
 import { AuthService } from 'src/app/auth/auth.service';
 import { User } from 'src/app/auth/user.model';
 import { Booking } from '../booking.model';
@@ -19,6 +19,7 @@ import { ConfirmBookingComponent } from './confirm-booking/confirm-booking.compo
   styleUrls: ['./time-booking.component.css']
 })
 export class TimeBookingComponent implements OnInit, OnDestroy {
+  timingControl = new FormControl('', Validators.required);
   timingCollection: AngularFirestoreCollection<Timing>;
   timingCollectionSubs: Subscription;
   user: User;
@@ -26,7 +27,9 @@ export class TimeBookingComponent implements OnInit, OnDestroy {
   timingArray = [];
   disableSelect = new FormControl(false);
   dateString: string;
-
+  timingSubscription: Subscription;
+  timingIdSubscription: Subscription;
+  confirmBookingSubscription: Subscription;
   // construct a Booking
   facility: string;
   selectedDate: Date;
@@ -47,10 +50,11 @@ export class TimeBookingComponent implements OnInit, OnDestroy {
       this.fetchTimings();
     });
     this.userSubscription = this.auth.user$.subscribe(user => this.user = user);
+    console.log('here');
   }
 
   fetchTimings() {
-    this.database.collection('facilities').doc(this.facilityId).valueChanges()
+    this.timingSubscription = this.database.collection('facilities').doc(this.facilityId).valueChanges()
                     .subscribe(fac => this.facility = fac['name']);
     const dateCollection = this.database.collection('facilities').doc(this.facilityId).collection('dates');
     dateCollection.snapshotChanges()
@@ -72,11 +76,11 @@ export class TimeBookingComponent implements OnInit, OnDestroy {
       });
   }
 
-  makeBooking() {
-    this.timingCollection.snapshotChanges()
+  makeBooking(form: NgForm) {
+    this.timingIdSubscription = this.timingCollection.snapshotChanges()
     .pipe(map(timingArray => {
       const filtered = timingArray.filter(timing =>
-        timing.payload.doc.data()['name'] === this.selected.name);
+        timing.payload.doc.data().name === this.selected.name);
       return filtered[0].payload.doc.id;
     }))
     .subscribe(timeId => this.timeId = timeId);
@@ -84,19 +88,21 @@ export class TimeBookingComponent implements OnInit, OnDestroy {
       data: {
         timing: this.selected.name,
         facility: this.facility,
-        date: this.selectedDate
+        date: this.selectedDate,
+        purpose: form.value.purpose,
+        nusNetId: form.value.netId
       }
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.confirmClicked();
+        this.confirmClicked(form.value.purpose, form.value.netId);
       }
     });
   }
 
-  confirmClicked() {
+  confirmClicked(explanation: string, nusId: string) {
     // updates the facility's booking status at the selected slot to be true
-    this.timingCollection.snapshotChanges()
+    this.confirmBookingSubscription = this.timingCollection.snapshotChanges()
     .pipe(map(timingArray => {
       const filtered = timingArray.filter(timing =>
         timing.payload.doc.data()['name'] === this.selected.name);
@@ -112,10 +118,13 @@ export class TimeBookingComponent implements OnInit, OnDestroy {
       facility: this.facility,
       date: this.selectedDate,
       time: this.selected.name,
-      approved: false,
+      pending: true,
       facilityId: this.facilityId,
       dateId: this.dateId,
-      timeId: this.timeId
+      timeId: this.timeId,
+      purpose: explanation,
+      userName: this.user.name,
+      nusNetId: nusId
     };
     // add booking to user's profile
     this.database.collection('users').doc(this.user.userId)
@@ -135,5 +144,9 @@ export class TimeBookingComponent implements OnInit, OnDestroy {
     if (this.timingCollectionSubs) {
       this.timingCollectionSubs.unsubscribe();
     }
+    this.userSubscription.unsubscribe();
+    this.timingSubscription.unsubscribe();
+    this.timingIdSubscription.unsubscribe();
+    this.confirmBookingSubscription.unsubscribe();
   }
 }

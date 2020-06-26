@@ -4,6 +4,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { AuthComponent } from './auth/auth.component';
 import { HallWelcomeComponent } from './hallwelcome/hallwelcome.component'; 
 import { BookingComponent } from './booking/booking.component';
+
+
 import { AuthGuard } from './auth/auth.guard';
 
 import { MsalGuard } from '@azure/msal-angular';

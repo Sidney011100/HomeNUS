@@ -30,12 +30,15 @@ import { AddBookingComponent } from './booking/add-booking/add-booking.component
 import { DateBookingComponent } from './booking/date-booking/date-booking.component';
 import { TimeBookingComponent } from './booking/time-booking/time-booking.component';
 import { ConfirmBookingComponent } from './booking/time-booking/confirm-booking/confirm-booking.component';
+import { MyBookingComponent } from './booking/my-booking/my-booking.component';
+import { PendingBookingComponent } from './booking/pending-booking/pending-booking.component';
+import { ApprovalComponent } from './booking/pending-booking/approval/approval.component';
+import { DeleteBookingComponent } from './booking/my-booking/delete-booking/delete-booking.component';
 
 import { MsalModule, MsalInterceptor } from '@azure/msal-angular';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { UIService } from './shared/ui.service';
-import { ManageBookingsComponent } from './manage-bookings/manage-bookings.component';
 
 const isIE = window.navigator.userAgent.indexOf('MSIE ') > -1 || window.navigator.userAgent.indexOf('Trident/') > -1;
 
@@ -57,7 +60,10 @@ const isIE = window.navigator.userAgent.indexOf('MSIE ') > -1 || window.navigato
       DateBookingComponent,
       TimeBookingComponent,
       ConfirmBookingComponent,
-      ManageBookingsComponent
+      MyBookingComponent,
+      PendingBookingComponent,
+      ApprovalComponent,
+      DeleteBookingComponent
    ],
    imports: [
       BrowserModule,
@@ -104,6 +110,6 @@ const isIE = window.navigator.userAgent.indexOf('MSIE ') > -1 || window.navigato
                   UIService
       ],
    bootstrap: [AppComponent],
-   entryComponents:[ AddAnnouncementComponent, ConfirmBookingComponent]
+   entryComponents:[ AddAnnouncementComponent, ConfirmBookingComponent, ApprovalComponent, DeleteBookingComponent]
 })
 export class AppModule { }

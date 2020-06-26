@@ -4,9 +4,6 @@ import { Subscription } from 'rxjs';
 import { Facility } from '../facility.model';
 import { map } from 'rxjs/operators';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
-import { MatDialog } from '@angular/material/dialog';
-import { TimeBookingComponent } from '../time-booking/time-booking.component';
-
 
 
 @Component({
@@ -15,7 +12,8 @@ import { TimeBookingComponent } from '../time-booking/time-booking.component';
   styleUrls: ['./date-booking.component.css']
 })
 export class DateBookingComponent implements OnInit, OnDestroy {
-  facilitySub: Subscription;
+  dateSubscription: Subscription;
+  facilitySubscription: Subscription;
   dateCollection: AngularFirestoreCollection<Date>;
   selectedFacility: Facility;
   displayDates = [];
@@ -23,19 +21,18 @@ export class DateBookingComponent implements OnInit, OnDestroy {
   dateSelected: Date;
 
   constructor(private bookingService: BookingService,
-              private database: AngularFirestore,
-              private dialog: MatDialog) { }
+              private database: AngularFirestore) { }
 
   ngOnInit() {
-    this.facilitySub = this.bookingService.facilitySelected.subscribe(facility => {
+    this.facilitySubscription = this.bookingService.facilitySelected.subscribe(facility => {
       this.selectedFacility = facility;
       this.fetchDates();
-      console.log(this.displayDates);
     });
+
   }
 
   fetchDates() {
-      this.database.collection<Facility>('facilities')
+      this.dateSubscription = this.database.collection<Facility>('facilities')
       .snapshotChanges()
       .pipe(map(docArray => {
         const filtered = docArray.filter(doc =>
@@ -48,7 +45,6 @@ export class DateBookingComponent implements OnInit, OnDestroy {
         this.dateCollection = this.database.collection('facilities').doc(result).collection<Date>('dates');
         this.dateCollection.valueChanges()
         .subscribe(results => {
-          const today = new Date();
           this.displayDates = results;
           });
         });
@@ -62,7 +58,12 @@ export class DateBookingComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.facilitySub.unsubscribe();
+    if (this.facilitySubscription) {
+      this.facilitySubscription.unsubscribe();
+    }
+    if (this.dateSubscription) {
+      this.dateSubscription.unsubscribe();
+    }
   }
 
 }

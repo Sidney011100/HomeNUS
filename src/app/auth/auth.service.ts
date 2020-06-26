@@ -33,6 +33,7 @@ export class AuthService {
         this.user$ = this.afAuth.authState.pipe( // Get auth data, then get firestore user document || null
             switchMap(user => {
                 if (user) {
+                    // console.log(user);
                     return this.database.doc<User>(`users/${user.uid}`).valueChanges();
                 } else {
                     return of(null); //change
@@ -103,7 +104,6 @@ export class AuthService {
         return this.afAuth.auth.signInWithPopup(provider)
             .then(cred => {
                 this.updateUserData(cred.user);
-                console.log(this.user$);
                 console.log('You have been successfully logged in!');
             })
             .catch(error => {
@@ -118,7 +118,6 @@ export class AuthService {
     async googleLogin(): Promise<any> {
         const provider = new firebase.auth.GoogleAuthProvider();
         const credential = await this.signInWithPopup(provider);
-        // console.log(credential.user.email)
         return this.updateUserData(credential.user);
     }
 
@@ -128,10 +127,12 @@ export class AuthService {
             login_hint: 'user@firstadd.onmicrosoft.com',
         });
         const credential = await this.signInWithPopup(provider);
+        console.log(credential.user);
         return this.updateUserData(credential.user);
     }
 
     logout() { //good
+        // cancel all subscriptions here
         this.announcementService.cancelSubscription();
         this.afAuth.auth.signOut()
             .catch(error => {
@@ -151,9 +152,9 @@ export class AuthService {
             email: user.email,
             roles: {
                 member: true
-            }
+            },
+            name: user.displayName
         };
-        console.log(this.user$);
         return userRef.set(data, { merge: true });
     }
 
