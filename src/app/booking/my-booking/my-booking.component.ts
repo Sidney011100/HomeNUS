@@ -23,6 +23,7 @@ export class MyBookingComponent implements OnInit, AfterViewInit, OnDestroy {
   user: User;
   userSubscription: Subscription;
   dataSubscription: Subscription;
+  private fbSubscription: Subscription[] = [];
 
 
   @ViewChild(MatSort) sort: MatSort;
@@ -52,7 +53,7 @@ export class MyBookingComponent implements OnInit, AfterViewInit, OnDestroy {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        return this.cancelBooking(element);
+        this.cancelBooking(element);
       }}
     );
   }
@@ -61,15 +62,20 @@ export class MyBookingComponent implements OnInit, AfterViewInit, OnDestroy {
     this.userCancelledBooking(element);
   }
 
-  userCancelledBooking(element: Booking) {
+  async userCancelledBooking(element: Booking) {
     // update in collection of facilities, dates, timings
+    const timingInFacilities = this.database.collection('facilities').doc(element.facilityId)
+    .collection('dates').doc(element.dateId)
+    .collection('timings').doc(element.timeId);
+    const updateTiming = await timingInFacilities.update({ booked: false });
+
     this.database.collection('facilities').doc(element.facilityId)
     .collection('dates').doc(element.dateId)
     .collection('timings').doc(element.timeId)
-    .set({booked: false, approved: false}, {merge: true});
+    .update({booked: false, approved: false});
 
     // remove from user's collection of bookings
-    this.database.collection('users').doc(element.userId)
+    this.fbSubscription.push(this.database.collection('users').doc(element.userId)
                 .collection('bookings')
                 .snapshotChanges()
                 .pipe(map(docArray => {
@@ -88,18 +94,17 @@ export class MyBookingComponent implements OnInit, AfterViewInit, OnDestroy {
                           .collection('bookings').doc(id).delete();
                     }
                   }
-                );
+                ));
+
     // remove from collection of bookings made
-    this.database.collection('bookings')
+    this.fbSubscription.push(this.database.collection('bookings')
                 .snapshotChanges()
                 .pipe(map(docArray => {
-                  console.log(element);
-                  const cancelledBooking = docArray.filter(doc => 
+                  const cancelledBooking = docArray.filter(doc =>
                     doc.payload.doc.data()['facilityId'] === element.facilityId &&
                     doc.payload.doc.data()['dateId'] === element.dateId &&
                     doc.payload.doc.data()['timeId'] === element.timeId
                   );
-                  console.log('bookings ' + cancelledBooking.length);
                   if (cancelledBooking.length) {
                     return cancelledBooking[0].payload.doc.id;
                   }
@@ -108,7 +113,7 @@ export class MyBookingComponent implements OnInit, AfterViewInit, OnDestroy {
                   if (docId) {
                     this.database.collection('bookings').doc(docId).delete();
                   }
-                });
+                }));
 
    }
 
@@ -123,6 +128,7 @@ export class MyBookingComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnDestroy() {
     this.dataSubscription.unsubscribe();
+    this.fbSubscription.forEach(sub => sub.unsubscribe());
   }
 
 }

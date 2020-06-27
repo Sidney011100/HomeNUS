@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, OnChanges } from '@angular/core';
-import { NgForm, FormControl, Validators } from '@angular/forms';
+import { NgForm, FormControl, Validators, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
@@ -19,7 +19,7 @@ import { ConfirmBookingComponent } from './confirm-booking/confirm-booking.compo
   styleUrls: ['./time-booking.component.css']
 })
 export class TimeBookingComponent implements OnInit, OnDestroy {
-  timingControl = new FormControl('', Validators.required);
+  timingForm: FormGroup;
   timingCollection: AngularFirestoreCollection<Timing>;
   timingCollectionSubs: Subscription;
   user: User;
@@ -44,6 +44,14 @@ export class TimeBookingComponent implements OnInit, OnDestroy {
               private dialog: MatDialog) { }
 
   ngOnInit() {
+    this.timingForm = new FormGroup({
+      timing: new FormControl('', { validators: [Validators.required]
+      }),
+      purpose: new FormControl('', { validators: [Validators.required]
+      }),
+      netId: new FormControl('', { validators: [Validators.required]
+      })
+    });
     this.timingCollectionSubs = this.bookingService.dateSelected.subscribe(chosenDate => {
       this.selectedDate = chosenDate.date;
       this.facilityId = chosenDate.facilityId;
@@ -76,26 +84,33 @@ export class TimeBookingComponent implements OnInit, OnDestroy {
       });
   }
 
-  makeBooking(form: NgForm) {
+  makeBooking() {
+    console.log(this.timingForm.value.timing.name);
     this.timingIdSubscription = this.timingCollection.snapshotChanges()
     .pipe(map(timingArray => {
       const filtered = timingArray.filter(timing =>
-        timing.payload.doc.data().name === this.selected.name);
-      return filtered[0].payload.doc.id;
+        timing.payload.doc.data()['name'] === this.timingForm.value.timing.name);
+      if (filtered.length) {
+        return filtered[0].payload.doc.id;
+      }
     }))
-    .subscribe(timeId => this.timeId = timeId);
+    .subscribe(timeId => {
+      if (timeId) {
+        return this.timeId = timeId;
+      }
+    });
     const dialogRef = this.dialog.open(ConfirmBookingComponent, {
       data: {
-        timing: this.selected.name,
+        timing: this.timingForm.value.timing.name,
         facility: this.facility,
         date: this.selectedDate,
-        purpose: form.value.purpose,
-        nusNetId: form.value.netId
+        purpose: this.timingForm.value.purpose,
+        nusNetId: this.timingForm.value.netId
       }
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.confirmClicked(form.value.purpose, form.value.netId);
+        this.confirmClicked(this.timingForm.value.purpose, this.timingForm.value.netId);
       }
     });
   }
@@ -105,7 +120,7 @@ export class TimeBookingComponent implements OnInit, OnDestroy {
     this.confirmBookingSubscription = this.timingCollection.snapshotChanges()
     .pipe(map(timingArray => {
       const filtered = timingArray.filter(timing =>
-        timing.payload.doc.data()['name'] === this.selected.name);
+        timing.payload.doc.data()['name'] === this.timingForm.value.timing.name);
       return filtered[0].payload.doc.id;
     }))
     .subscribe(timeId => {
@@ -117,7 +132,7 @@ export class TimeBookingComponent implements OnInit, OnDestroy {
       userId: this.user.userId,
       facility: this.facility,
       date: this.selectedDate,
-      time: this.selected.name,
+      time: this.timingForm.value.timing.name,
       pending: true,
       facilityId: this.facilityId,
       dateId: this.dateId,

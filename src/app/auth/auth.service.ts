@@ -3,8 +3,6 @@ import { Router } from '@angular/router';
 import { Subject, Observable, of, Subscription } from 'rxjs';
 import { AngularFireAuth } from 'angularfire2/auth';
 
-import { AuthData } from './auth-data.model';
-import { auth } from 'firebase';
 import { switchMap } from 'rxjs/operators';
 
 import firebase from '@firebase/app';
@@ -13,7 +11,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { UIService } from '../shared/ui.service';
 import { User } from './user.model';
 import { AnnouncementService } from '../hallwelcome/home/announcement.service';
-import { AngularFirestoreCollection, AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore';
+import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore';
+import { BookingService } from '../booking/booking.service';
 
 
 
@@ -28,7 +27,8 @@ export class AuthService {
                 private snackBar: MatSnackBar,
                 private uiService: UIService,
                 private database: AngularFirestore,
-                private announcementService: AnnouncementService
+                private announcementService: AnnouncementService,
+                private bookingService: BookingService
     ) {
         this.user$ = this.afAuth.authState.pipe( // Get auth data, then get firestore user document || null
             switchMap(user => {
@@ -131,21 +131,12 @@ export class AuthService {
         return this.updateUserData(credential.user);
     }
 
-    logout() { //good
-        // cancel all subscriptions here
-        this.announcementService.cancelSubscription();
-        this.afAuth.auth.signOut()
-            .catch(error => {
-                console.log(error);
-            });
-    }
-
-    isAuth() { //good
+    isAuth() { // good
         return this.isAuthenticated;
     }
 
     // Sets user data to firestore on login
-    private updateUserData(user) { //good
+    private updateUserData(user) { // good
         const userRef: AngularFirestoreDocument<any> = this.database.doc(`users/${user.uid}`);
         const data: User = {
             userId: user.uid,
@@ -185,10 +176,17 @@ export class AuthService {
         const allowed = ['admin'];
         return this.checkAuthorization(user, allowed);
     }
-
     ///// End of Role-based Authorization //////
 
-
+    logout() { // good
+        // cancel all subscriptions here
+        this.bookingService.cancelSubscriptions();
+        this.announcementService.cancelSubscription();
+        this.afAuth.auth.signOut()
+            .catch(error => {
+                console.log(error);
+            });
+    }
 
 
 }

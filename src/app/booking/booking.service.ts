@@ -4,7 +4,6 @@ import { Subject, Subscription } from 'rxjs';
 import { Facility } from './facility.model';
 import { map } from 'rxjs/operators';
 import { SelectedDate } from './selectedDate.model';
-import { AuthService } from '../auth/auth.service';
 import { User } from '../auth/user.model';
 import { Booking } from './booking.model';
 
@@ -18,29 +17,22 @@ export class BookingService {
   dateSelected = new Subject<SelectedDate>();
   facilities: Facility[];
   user: User;
-  userSubscription: Subscription;
-  myBookingSubscription: Subscription;
   myBookingSubject = new Subject<Booking[]>();
   myBookings: Booking[];
-  pendingBookingSubscription: Subscription;
   pendingSubject = new Subject<Booking[]>();
-  pendingBookings : Booking[];
-  fetchDatesSubscription: Subscription;
-  cancelBookingInUsersSub: Subscription;
-  cancelBookingInBookingsSub: Subscription;
-  cancelBookingInFacilitiesSub: Subscription;
+  pendingBookings: Booking[];
+  private firebaseSubscriptions: Subscription[] = [];
 
-  constructor(private database: AngularFirestore,
-              private authService: AuthService) { }
+  constructor(private database: AngularFirestore) { }
 
 
     // for users to view all facilities and make a booking, called in BookingComponent //
     fetchFacilitiesData() {
-        this.database.collection('facilities')
+        this.firebaseSubscriptions.push(this.database.collection('facilities')
                     .valueChanges()
                     .subscribe((facilities: Facility[]) => {
                         this.facilityAdded.next(facilities);
-                    });
+                    }));
     }
 
     // when admin adds a new Facility //
@@ -65,22 +57,22 @@ export class BookingService {
 
     // for user to view all their bookings, called in MyBookingsCompoenent //
     fetchMyBookings(userId: string) {
-      this.myBookingSubscription = this.database.collection('users').doc(userId).collection('bookings')
+      this.firebaseSubscriptions.push(this.database.collection('users').doc(userId).collection('bookings')
         .valueChanges()
         .subscribe((bookings: Booking[]) => {
           this.myBookings = bookings;
           this.myBookingSubject.next([...this.myBookings]);
-        });
+        }));
     }
 
     // for admin to fetch all bookings made //
     fetchPendingBookings() {
-      this.pendingBookingSubscription = this.database.collection('bookings')
+      this.firebaseSubscriptions.push(this.database.collection('bookings')
         .valueChanges()
         .subscribe((bookings: Booking[]) => {
           this.pendingBookings = bookings;
           this.pendingSubject.next([...this.pendingBookings]);
-        })
+        }));
     }
 
 
@@ -95,7 +87,7 @@ export class BookingService {
     // when a user cancels their booking: called in myBookingComponent //
     userCancelledBooking(element: Booking) {
       // remove from user's collection of bookings
-      this.cancelBookingInUsersSub = this.database.collection('users').doc(element.userId)
+      this.firebaseSubscriptions.push(this.database.collection('users').doc(element.userId)
                   .collection('bookings')
                   .snapshotChanges()
                   .pipe(map(docArray => {
@@ -110,9 +102,9 @@ export class BookingService {
                   }))
                   .subscribe(id => this.database.collection('users').doc(element.userId)
                             .collection('bookings').doc(id).delete()
-                  );
+                  ));
       // remove from collection of bookings made
-      this.cancelBookingInBookingsSub = this.database.collection('bookings')
+      this.firebaseSubscriptions.push(this.database.collection('bookings')
                   .snapshotChanges()
                   .pipe(map(docArray => {
                     const cancelledBooking = docArray.filter(doc =>{
@@ -125,7 +117,7 @@ export class BookingService {
                   }))
                   .subscribe(docId =>
                     this.database.collection('bookings').doc(docId).delete()
-                    );
+                    ));
       // update in collection of facilities, dates, timings
       this.database.collection('facilities').doc(element.facilityId)
                   .collection('dates').doc(element.dateId)
@@ -134,11 +126,7 @@ export class BookingService {
      }
 
      cancelSubscriptions() {
-        this.userSubscription.unsubscribe();
-        this.myBookingSubscription.unsubscribe();
-        this.pendingBookingSubscription.unsubscribe();
-        this.cancelBookingInUsersSub.unsubscribe();
-        this.cancelBookingInBookingsSub.unsubscribe();
+        this.firebaseSubscriptions.forEach(subs => subs.unsubscribe());
      }
 
 }
