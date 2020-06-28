@@ -9,4 +9,10 @@ body {
     font-family: 'Open Sans', sans-serif;
 }
 
+.mat-dialog-container {
+    background-color: #272625;
+}
 
+.mat-input-element {
+    caret-color: #DEB992;
+}

@@ -8,3 +8,8 @@ button, mat-form-field {
     margin-right: 10px;
 }
 
+button {
+    background-color: #DEB992;
+    color: #1a1a1a;
+}
+

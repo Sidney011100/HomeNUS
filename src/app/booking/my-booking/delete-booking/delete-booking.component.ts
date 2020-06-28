@@ -15,9 +15,10 @@ import { Booking } from '../../booking.model';
                 <p>Nus NetId: {{ passedData.nusNetId }}</p>
               </mat-dialog-content>
               <mat-dialog-actions fxLayout="column" fxLayoutAlign="center center">
-                  <button mat-button [mat-dialog-close]="true">Cancel Booking</button>
+                  <button class="cancel-btn" mat-button [mat-dialog-close]="true">Cancel Booking</button>
                   <button mat-button [mat-dialog-close]="false">Close</button>
-              </mat-dialog-actions>`
+              </mat-dialog-actions>`,
+  styleUrls: ['./delete-booking.component.css']
 })
 export class DeleteBookingComponent {
 

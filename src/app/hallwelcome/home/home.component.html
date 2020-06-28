@@ -2,8 +2,8 @@
 
 <div class="divider" style="z-index: 1000;"></div>
 
-<div class="addAnnouncement">
-    <button mat-raised-button (click)="openModal()" *ngIf="auth.canEdit(user)">
+<div>
+    <button class="add-btn" mat-raised-button (click)="openModal()" *ngIf="auth.canEdit(user)">
         <mat-icon>add</mat-icon>
         <span>Add an announcement</span>
     </button>
@@ -22,16 +22,18 @@
         </mat-card-content>
 
         <mat-card-actions>
-            <button class="edit-btn" mat-raised-button (click)="onEdit($event, a)" *ngIf="auth.canEdit(user)">
+
+            <button class="edit-btn" (click)="onEdit($event, a)" *ngIf="auth.canEdit(user) && !editState">
                 <mat-icon>edit</mat-icon>
-                <span>Edit</span>
             </button>
-            <button mat-raised-button (click)="clearState()" *ngIf="editState && announcementToEdit.id === a.id">
+
+            <button class="close-btn" (click)="clearState()" *ngIf="editState && announcementToEdit.id === a.id">
                 <mat-icon>close</mat-icon>
             </button>
+
         </mat-card-actions>
 
-        <div *ngIf="editState && announcementToEdit.id === a.id">
+        <div class="update-form" *ngIf="editState && announcementToEdit.id === a.id">
             <form (ngSubmit)="updateAnnouncement(a)">
                 <mat-form-field appearance="outline">
                     <input matInput type="text" [(ngModel)]="a.title" name="title">
@@ -40,17 +42,11 @@
                     <input matInput type="text" [(ngModel)]="a.description" name="description">
                 </mat-form-field>
 
-                <button mat-raised-button type="submit">Update</button>
+                <button class="update-btn" type="submit">Update</button>
             </form>
 
-            <button mat-raised-button color="warn" (click)="onDelete($event, a)">
-                <mat-icon>delete</mat-icon>
-            </button>
+            <button class="delete-btn" (click)="onDelete($event, a)">Delete</button>
         </div>
 
     </mat-card>
 </section>
-
-<button class="add-btn" mat-raised-button (click)="openModal()" *ngIf="auth.canEdit(user)">
-    <mat-icon>add</mat-icon>
-</button>

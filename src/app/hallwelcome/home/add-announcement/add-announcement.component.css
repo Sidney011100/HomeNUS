@@ -1,8 +1,28 @@
+h2 {
+    color: #deb992;
+    text-align: center;
+}
+
 .add-announcement-form {
     padding: 20px;
+    color: #deb992;
 }
-.add {
-    width: 60%;
-    background-color: rgb(138, 223, 11);
-    border: 2px solid rgb(77, 74, 74);
+
+.add-btn {
+    background: transparent;
+    border: none;
+    color: #deb992;
+    font-size: 17px;
+    font-weight: bold;
+    position: relative;
+    left: 90%;
+    top: 1.5em;
+}
+
+button:disabled {
+    color: rgb(109, 104, 104);
+}
+
+.mat-form-field-appearance-outline .mat-form-field-flex {
+    border: none;
 }

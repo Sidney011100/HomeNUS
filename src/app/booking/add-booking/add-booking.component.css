@@ -1,0 +1,16 @@
+* {
+    color: #deb992;
+}
+
+.add-btn {
+    background: transparent;
+    border: none;
+    font-size: 17px;
+    font-weight: bolder;
+    position: relative;
+    left: 12em;
+}
+
+.mat-form-field {
+    display: block;
+}

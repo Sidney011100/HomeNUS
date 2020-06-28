@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit, OnDestroy  } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
 import { Subject, Subscription } from 'rxjs';
 import { Facility } from './facility.model';
 import { Observable } from 'rxjs';

@@ -1,3 +1,13 @@
-div, h5 {
-    color: white;
+* {
+    color: #deb992;
+}
+
+.user-instruc {
+    margin-left: 20px;
+    font-size: 1.2em;
+}
+
+.mat-raised-button {
+    color: black;
+    background-color: #deb992;
 }

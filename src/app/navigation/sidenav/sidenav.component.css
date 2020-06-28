@@ -14,3 +14,11 @@ mat-sidenav {
 mat-nav-list {
     height: 100%;
 }
+
+.mat-list-item {
+    color: #DEB992;
+}
+
+#logout {
+    margin-left: 6px;
+}

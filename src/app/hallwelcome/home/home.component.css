@@ -5,54 +5,83 @@ h2 {
     padding: 20px 20px 0px 20px;
 }
 
-mat-card-title {
-    text-decoration: underline;
+.divider {
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: auto;
+    height: 1px;
+    width: 70%;
+    background-color: #deb992;
 }
 
 .announcement-board {
     padding: 20px 10px 10px 10px;
 }
 
-.a-card {
-    margin: 0px 10px 15px 10px;
-}
-
-mat-card-content {
-    line-height: 20px;
-    color: #dbccbc;
-}
-
-mat-card-content {
-    /* text-shadow: 5px 5px #E9E9E9; */
-}
-
-.divider {
-    position: absolute;
-    left: 0;
-    right: 0;
-    margin: 0 auto;
-    height: 1px;
-    width: 70%;
-    background-color: #deb992;
-}
-
-.mat-card {
-    background-color: #deb992;
-    background: transparent;
+mat-card {
+    margin: 0px 7px 15px 7px;
+    background-color: #272625;
     color: #deb992;
+    line-height: 20px;
+    max-width: 1440px;
 }
 
-button {
-    background-color: #deb992;
-    border-radius: 50%;
+mat-icon {
+    margin: 0;
 }
 
 .edit-btn {
     position: relative;
-    margin-left: 100px;
+    left: 90%;
+    border: none;
+    background: transparent;
+    cursor: pointer;
 }
 
+.edit-btn mat-icon {
+    color: #deb992;
+}
 
-.addAnnouncement {
-    padding-left: 20px;
+.add-btn {
+    position: relative;
+    left: 23%;
+    background-color: #deb992;
+    color: #1a1a1a;
+    margin-top: 20px;
+    font-weight: bold;
+}
+
+.close-btn {
+    border: none;
+    background: transparent;
+    color: #deb992;
+    position: relative;
+    left: 90%;
+}
+
+.update-btn, .delete-btn{
+    background: transparent;
+    border: none;
+    font-size: 17px;
+    font-weight: bold;
+}
+
+.update-btn {
+    position: relative;
+    top: 1.75em;
+    left: 53%;
+    color: #deb992;
+
+}
+
+.delete-btn {
+    position: relative;
+    left: 80%;
+    top: 0.45em;
+    color: rgb(192, 0, 0);
+}
+
+mat-form-field {
+    display: block;
 }

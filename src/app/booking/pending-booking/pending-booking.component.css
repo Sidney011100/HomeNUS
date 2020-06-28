@@ -1,0 +1,48 @@
+/deep/ .ng-tns-c114-5 {   /*filter field*/
+    color: #deb992;
+    margin: auto;
+}
+
+.booking-table {
+    margin: 10px;
+}
+
+.mat-cell, .mat-header-cell, .mat-raised-button, .mat-paginator {
+    color: #deb992;
+    background-color: #272625;
+}
+
+.select-btn {
+    position: relative;
+    right: 1em;
+    background-color: #313131;
+}
+
+::ng-deep .mat-paginator-icon { /*paginator left right arrows*/ 
+    color: #deb992;
+}
+
+::ng-deep .mat-select-value-text { 
+    color: #deb992;
+}
+
+::ng-deep .mat-select-arrow {
+    color: #deb992;
+}
+
+::ng-deep .mat-select-panel {
+    background-color: #deb992;
+}
+
+::ng-deep .mat-primary .mat-option.mat-selected:not(.mat-option-disabled) {
+    font-weight: bolder;
+    color: black;
+}
+
+.pending-btn {
+    background-color: #313131;
+}
+
+.misc-btn { /*approved or denied button*/
+    color: rgb(23, 160, 35);
+}

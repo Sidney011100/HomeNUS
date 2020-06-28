@@ -1,73 +1,80 @@
 <mat-tab-group animationDuration="1200ms">
 
   <mat-tab>
-      <ng-template mat-tab-label>
-          <mat-icon>announcement</mat-icon>
-          New Booking
-      </ng-template>
-      <div fxLayoutAlign="left center" >
-        <mat-form-field fxFlex="40%">
-            <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Filter">
-        </mat-form-field>
-      </div>
-      
-      <div  class="addFacility">
-        <button mat-raised-button (click)="openModal()" *ngIf="auth.canEdit(user)">
-          <mat-icon>add</mat-icon>
-          <span>Add a facility</span>
-        </button>
-      </div>
-      
+    <ng-template mat-tab-label>
+      <mat-icon>announcement</mat-icon>
+      New Booking
+    </ng-template>
+
+    <h2>Bookings</h2>
+
+    <div class="divider" style="z-index: 1000;"></div>
+
+    <div fxLayoutAlign="left center">
+      <mat-form-field fxFlex="80%">
+        <input class="filter-field" matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Filter">
+      </mat-form-field>
+    </div>
+
+    <div class="addFacility">
+      <button class="add-btn" mat-raised-button (click)="openModal()" *ngIf="auth.canEdit(user)">
+        <mat-icon>add</mat-icon>
+        <span>Add a facility</span>
+      </button>
+    </div>
+
+    <!-- Bookings Table -->
+    <div class="booking-table">
       <mat-table [dataSource]="dataSource" matSort>
         <ng-container matColumnDef="name">
           <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
           <mat-cell *matCellDef="let element">
-            <button mat-flat-button (click)="facilityClicked(element.name)">{{ element.name }}</button>
+            <button class="select-btn" mat-raised-button (click)="facilityClicked(element.name)">{{ element.name }}</button>
           </mat-cell>
         </ng-container>
-      
+  
         <ng-container matColumnDef="capacity">
           <mat-header-cell *matHeaderCellDef mat-sort-header>Capacity</mat-header-cell>
           <mat-cell *matCellDef="let element">{{ element.capacity | number }}</mat-cell>
         </ng-container>
-      
+  
         <ng-container matColumnDef="block">
           <mat-header-cell *matHeaderCellDef mat-sort-header>Block</mat-header-cell>
           <mat-cell *matCellDef="let element">{{ element.block }}</mat-cell>
         </ng-container>
-      
+  
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
         <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
       </mat-table>
-      
-      <mat-paginator #paginator
-                    [pageSize]="5"
-                    [pageSizeOptions]="[5, 10, 15]">
+  
+      <mat-paginator #paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 15]">
       </mat-paginator>
-      
-      <app-date-booking *ngIf="selectedFacility"></app-date-booking>
-      
-      <div fxLayoutAlign="center center">
-        <app-time-booking *ngIf="selectedDate"></app-time-booking>
-      </div>
+    </div>
+    <!-- End of Bookings Table -->
+
+    <app-date-booking *ngIf="selectedFacility"></app-date-booking>
+
+    <div fxLayoutAlign="center center">
+      <app-time-booking *ngIf="selectedDate"></app-time-booking>
+    </div>
   </mat-tab>
 
+  <!-- End of 1st tab -->
+
   <mat-tab>
-      <ng-template mat-tab-label>
-          <mat-icon>today</mat-icon>
-          My Bookings
-      </ng-template>
-      <app-my-booking></app-my-booking>
+    <ng-template mat-tab-label>
+      <mat-icon>today</mat-icon>
+      My Bookings
+    </ng-template>
+    <app-my-booking></app-my-booking>
   </mat-tab>
 
   <mat-tab>
     <ng-template mat-tab-label>
-        <mat-icon>today</mat-icon>
-        Pending Bookings
+      <mat-icon>today</mat-icon>
+      Pending Bookings
     </ng-template>
     <app-pending-booking></app-pending-booking>
-</mat-tab>
+  </mat-tab>
 
 </mat-tab-group>
-
-
