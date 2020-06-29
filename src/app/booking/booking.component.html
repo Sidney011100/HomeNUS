@@ -26,10 +26,10 @@
     <!-- Bookings Table -->
     <div class="booking-table">
       <mat-table [dataSource]="dataSource" matSort>
-        <ng-container matColumnDef="name">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
-          <mat-cell *matCellDef="let element">
-            <button class="select-btn" mat-raised-button (click)="facilityClicked(element.name)">{{ element.name }}</button>
+        <ng-container matColumnDef="name" >
+          <mat-header-cell *matHeaderCellDef mat-sort-header class="name" style="width:150px;">Name</mat-header-cell>
+          <mat-cell *matCellDef="let element" class="name">
+            <button class="select-btn" mat-raised-button (click)="facilityClicked(element.name)" class="name">{{ element.name }}</button>
           </mat-cell>
         </ng-container>
   

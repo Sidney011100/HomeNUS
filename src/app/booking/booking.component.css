@@ -71,3 +71,96 @@ mat-cell a:hover, mat-cell a:active {
     color: black;
 }
 /* End of Table CSS */
+/* 
+button,
+.mat-cell, 
+.mat-header-cell, 
+.mat-header-row, 
+.mat-row {
+    display: inline-flex;
+    min-width: 150px;
+} */
+
+table{
+    width: 100%;
+   }
+   
+   .mat-column-name {
+     word-wrap: break-word !important;
+     white-space: unset !important;
+     flex: 0 0 50% !important;
+     width: 50% !important;
+     overflow-wrap: break-word;
+     word-wrap: break-word;
+    justify-content: center;
+     word-break: break-word;
+   padding: 0 0;
+     -ms-hyphens: auto;
+     -moz-hyphens: auto;
+     -webkit-hyphens: auto;
+     hyphens: auto;
+   }
+   
+   .mat-column-capacity {
+     word-wrap: break-word !important;
+     white-space: unset !important;
+     flex: 0 0 25% !important;
+     width: 25% !important;
+     overflow-wrap: break-word;
+     word-wrap: break-word;
+   
+     word-break: break-word;
+   
+     -ms-hyphens: auto;
+     -moz-hyphens: auto;
+     -webkit-hyphens: auto;
+     hyphens: auto;
+   }
+   
+   .mat-column-block {
+     word-wrap: break-word !important;
+     white-space: unset !important;
+     flex: 0 0 17% !important;
+     width: 17% !important;
+     overflow-wrap: break-word;
+     word-wrap: break-word;
+   
+     word-break: break-word;
+   
+     -ms-hyphens: auto;
+     -moz-hyphens: auto;
+     -webkit-hyphens: auto;
+     hyphens: auto;
+   }
+/*    
+   .mat-column-userimage {
+     word-wrap: break-word !important;
+     white-space: unset !important;
+     flex: 0 0 8% !important;
+     width: 8% !important;
+     overflow-wrap: break-word;
+     word-wrap: break-word;
+   
+     word-break: break-word;
+   
+     -ms-hyphens: auto;
+     -moz-hyphens: auto;
+     -webkit-hyphens: auto;
+     hyphens: auto;
+   }
+   
+   .mat-column-userActivity {
+     word-wrap: break-word !important;
+     white-space: unset !important;
+     flex: 0 0 10% !important;
+     width: 10% !important;
+     overflow-wrap: break-word;
+     word-wrap: break-word;
+   
+     word-break: break-word;
+   
+     -ms-hyphens: auto;
+     -moz-hyphens: auto;
+     -webkit-hyphens: auto;
+     hyphens: auto;
+   } */
