@@ -9,8 +9,9 @@ import { Booking } from '../booking.model';
 import { BookingService } from '../booking.service';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteBookingComponent } from './delete-booking/delete-booking.component';
-import { AngularFirestore } from 'angularfire2/firestore';
+import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { map } from 'rxjs/operators';
+import { Timing } from '../time-booking/timing.model';
 
 @Component({
   selector: 'app-my-booking',
@@ -24,6 +25,8 @@ export class MyBookingComponent implements OnInit, AfterViewInit, OnDestroy {
   userSubscription: Subscription;
   dataSubscription: Subscription;
   private fbSubscription: Subscription[] = [];
+  timingInFacilitiesSubscription: Subscription;
+  timingCollection: AngularFirestoreCollection<Timing>;
 
 
   @ViewChild(MatSort) sort: MatSort;
@@ -64,15 +67,19 @@ export class MyBookingComponent implements OnInit, AfterViewInit, OnDestroy {
 
   async userCancelledBooking(element: Booking) {
     // update in collection of facilities, dates, timings
-    const timingInFacilities = this.database.collection('facilities').doc(element.facilityId)
+    const timingInFacilities: AngularFirestoreDocument<Timing> = this.database.collection('facilities').doc(element.facilityId)
     .collection('dates').doc(element.dateId)
     .collection('timings').doc(element.timeId);
-    const updateTiming = await timingInFacilities.update({ booked: false });
 
-    this.database.collection('facilities').doc(element.facilityId)
-    .collection('dates').doc(element.dateId)
-    .collection('timings').doc(element.timeId)
-    .update({booked: false, approved: false});
+    this.fbSubscription.push(timingInFacilities.get()
+                      .subscribe(
+                        doc => {
+                            const data = {
+                              booked: false
+                            };
+                            timingInFacilities.update(data);
+                        }
+                      ));
 
     // remove from user's collection of bookings
     this.fbSubscription.push(this.database.collection('users').doc(element.userId)

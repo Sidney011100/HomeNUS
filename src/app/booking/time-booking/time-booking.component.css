@@ -10,12 +10,16 @@ mat-form-field, button, mat-label  {
     width: 300px;
 }
 
-/deep/ .mat-option-text {
+/deep/ .mat-option {
     color: black;
 }
 
 /deep/ .mat-option.mat-active {
     font-weight: bold;
+}
+
+/deep/ .mat-option[aria-disabled=true] {
+    color: rgba(0,0,0,.38)
 }
 
 /deep/ .ng-tns-c114-28 { /* Purpose of booking field */

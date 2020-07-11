@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy, OnChanges } from '@angular/core';
 import { NgForm, FormControl, Validators, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 
-import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
+import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -85,7 +85,6 @@ export class TimeBookingComponent implements OnInit, OnDestroy {
   }
 
   makeBooking() {
-    console.log(this.timingForm.value.timing.name);
     this.timingIdSubscription = this.timingCollection.snapshotChanges()
     .pipe(map(timingArray => {
       const filtered = timingArray.filter(timing =>
@@ -117,16 +116,27 @@ export class TimeBookingComponent implements OnInit, OnDestroy {
 
   confirmClicked(explanation: string, nusId: string) {
     // updates the facility's booking status at the selected slot to be true
-    this.confirmBookingSubscription = this.timingCollection.snapshotChanges()
-    .pipe(map(timingArray => {
-      const filtered = timingArray.filter(timing =>
-        timing.payload.doc.data()['name'] === this.timingForm.value.timing.name);
-      return filtered[0].payload.doc.id;
-    }))
-    .subscribe(timeId => {
-      this.timeId = timeId;
-      this.timingCollection.doc(timeId).update({booked: true});
-    });
+    // this.confirmBookingSubscription = this.timingCollection.snapshotChanges()
+    // .pipe(map(timingArray => {
+    //   const filtered = timingArray.filter(timing =>
+    //     timing.payload.doc.data()['name'] === this.timingForm.value.timing.name);
+    //   return filtered[0].payload.doc.id;
+    // }))
+    // .subscribe(timeId => {
+    //   this.timeId = timeId;
+    //   const docRef = this.timingCollection.doc(timeId);
+    //   console.log(this.timingForm.value.timing.name.slice(0, 5));
+    //   this.timingCollection.doc(timeId).update({booked: true});
+    // });
+    const timeId = this.timingForm.value.timing.name.slice(0, 4);
+    const timingInFacilitiesDoc: AngularFirestoreDocument<Timing> =
+      this.timingCollection.doc(timeId);
+    console.log(timingInFacilitiesDoc);
+    timingInFacilitiesDoc.get().subscribe(
+      doc => {
+        timingInFacilitiesDoc.update({ booked: true });
+      }
+    );
     // create a Booking
     const booking: Booking = {
       userId: this.user.userId,
