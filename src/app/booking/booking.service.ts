@@ -21,7 +21,7 @@ export class BookingService {
   myBookings: Booking[];
   pendingSubject = new Subject<Booking[]>();
   pendingBookings: Booking[];
-  private firebaseSubscriptions: Subscription[] = [];
+  firebaseSubscriptions: Subscription[] = [];
 
   constructor(private database: AngularFirestore) { }
 
@@ -55,6 +55,18 @@ export class BookingService {
           });
     }
 
+    // addMonthlyDate() {
+
+    // }
+
+    setTwentyFourHourClock(hour: number) {
+      return hour < 10 ? '0' + hour + '00' : hour + '00';
+    }
+
+    setTimeRange(hour: number) {
+      return `${this.setTwentyFourHourClock(hour)} - ${this.setTwentyFourHourClock(hour + 1)}`;
+    }
+
     // for user to view all their bookings, called in MyBookingsCompoenent //
     fetchMyBookings(userId: string) {
       this.firebaseSubscriptions.push(this.database.collection('users').doc(userId).collection('bookings')
@@ -73,15 +85,6 @@ export class BookingService {
           this.pendingBookings = bookings;
           this.pendingSubject.next([...this.pendingBookings]);
         }));
-    }
-
-
-    setTwentyFourHourClock(number: number) {
-      return number < 10 ? '0' + number + '00' : number + '00';
-    }
-
-    setTimeRange(number: number) {
-      return `${this.setTwentyFourHourClock(number)} - ${this.setTwentyFourHourClock(number + 1)}`;
     }
 
     // when a user cancels their booking: called in myBookingComponent //

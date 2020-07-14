@@ -6,13 +6,13 @@
       New Booking
     </ng-template>
 
-    <h2>Bookings</h2>
+    <!-- <h2>Bookings</h2>
 
     <div class="divider" style="z-index: 1000;"></div>
 
     <div fxLayoutAlign="left center">
-      <mat-form-field fxFlex="80%">
-        <input class="filter-field" matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Filter">
+      <mat-form-field fxFlex="80%" color="primary">
+        <input class="filter-field" matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Filter" color="primary">
       </mat-form-field>
     </div>
 
@@ -22,8 +22,6 @@
         <span>Add a facility</span>
       </button>
     </div>
-
-    <!-- Bookings Table -->
     <div class="booking-table">
       <mat-table [dataSource]="dataSource" matSort>
         <ng-container matColumnDef="name" >
@@ -50,7 +48,8 @@
       <mat-paginator #paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 15]">
       </mat-paginator>
     </div>
-    <!-- End of Bookings Table -->
+    End of Bookings Table -->
+    <app-facility-booking></app-facility-booking>
 
     <app-date-booking *ngIf="selectedFacility"></app-date-booking>
 

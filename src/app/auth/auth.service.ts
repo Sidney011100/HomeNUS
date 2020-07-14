@@ -14,8 +14,6 @@ import { AnnouncementService } from '../hallwelcome/home/announcement.service';
 import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { BookingService } from '../booking/booking.service';
 
-
-
 @Injectable()
 export class AuthService {
     private isAuthenticated = false;

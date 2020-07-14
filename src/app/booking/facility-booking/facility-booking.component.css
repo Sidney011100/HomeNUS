@@ -1,0 +1,170 @@
+h2 {
+    text-align: center;
+    color: #deb992;
+    font-size: 1.2em;
+    padding: 20px 20px 0px 20px;
+}
+
+.divider {
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: auto;
+    height: 1px;
+    width: 50%;
+    background-color: #deb992;
+}
+
+mat-cell a:hover, mat-cell a:active {
+    color: lightyellow;
+}
+
+/deep/ .ng-tns-c114-3, .mat-form-field-infix {   /*filter field*/
+    color: #deb992;
+    margin: auto;
+}
+
+.add-btn {
+    position: relative;
+    left: 30%;
+    bottom: 1.5em;
+    background-color: #deb992;
+    color: #1a1a1a;
+    margin-top: 20px;
+    font-weight: bold;
+}
+
+/* Table CSS */
+.booking-table {
+    margin: 10px;
+}
+
+.mat-cell, .mat-header-cell, .mat-raised-button, .mat-paginator {
+    color: #deb992;
+    background-color: #272625;
+}
+
+.select-btn {
+    position: relative;
+    right: 1em;
+    background-color: #313131;
+}
+
+::ng-deep .mat-paginator-icon { /*paginator left right arrows*/ 
+    color: #deb992;
+}
+
+::ng-deep .mat-select-value-text { 
+    color: #deb992;
+}
+
+::ng-deep .mat-select-arrow {
+    color: #deb992;
+}
+
+::ng-deep .mat-select-panel {
+    background-color: #deb992;
+}
+
+::ng-deep .mat-primary .mat-option.mat-selected:not(.mat-option-disabled) {
+    font-weight: bolder;
+    color: black;
+}
+/* End of Table CSS */
+/* 
+button,
+.mat-cell, 
+.mat-header-cell, 
+.mat-header-row, 
+.mat-row {
+    display: inline-flex;
+    min-width: 150px;
+} */
+
+table{
+    width: 100%;
+   }
+   
+   .mat-column-name {
+     word-wrap: break-word !important;
+     white-space: unset !important;
+     flex: 0 0 50% !important;
+     width: 50% !important;
+     overflow-wrap: break-word;
+     word-wrap: break-word;
+    justify-content: center;
+     word-break: break-word;
+   padding: 0 0;
+     -ms-hyphens: auto;
+     -moz-hyphens: auto;
+     -webkit-hyphens: auto;
+     hyphens: auto;
+   }
+
+   .mat-drawer-container, h4 {
+       color: #DEB992 !important;
+   }
+   
+   .mat-column-capacity {
+     word-wrap: break-word !important;
+     white-space: unset !important;
+     flex: 0 0 25% !important;
+     width: 25% !important;
+     overflow-wrap: break-word;
+     word-wrap: break-word;
+   
+     word-break: break-word;
+   
+     -ms-hyphens: auto;
+     -moz-hyphens: auto;
+     -webkit-hyphens: auto;
+     hyphens: auto;
+   }
+   
+   .mat-column-block {
+     word-wrap: break-word !important;
+     white-space: unset !important;
+     flex: 0 0 17% !important;
+     width: 17% !important;
+     overflow-wrap: break-word;
+     word-wrap: break-word;
+   
+     word-break: break-word;
+   
+     -ms-hyphens: auto;
+     -moz-hyphens: auto;
+     -webkit-hyphens: auto;
+     hyphens: auto;
+   }
+/*    
+   .mat-column-userimage {
+     word-wrap: break-word !important;
+     white-space: unset !important;
+     flex: 0 0 8% !important;
+     width: 8% !important;
+     overflow-wrap: break-word;
+     word-wrap: break-word;
+   
+     word-break: break-word;
+   
+     -ms-hyphens: auto;
+     -moz-hyphens: auto;
+     -webkit-hyphens: auto;
+     hyphens: auto;
+   }
+   
+   .mat-column-userActivity {
+     word-wrap: break-word !important;
+     white-space: unset !important;
+     flex: 0 0 10% !important;
+     width: 10% !important;
+     overflow-wrap: break-word;
+     word-wrap: break-word;
+   
+     word-break: break-word;
+   
+     -ms-hyphens: auto;
+     -moz-hyphens: auto;
+     -webkit-hyphens: auto;
+     hyphens: auto;
+   } */

@@ -5,3 +5,16 @@
 .no-btn {
     color: red;
 }
+
+
+/deep/ .mat-option.mat-active {
+    color: black !important;
+}
+
+/deep/ .mat-option {
+    color: black !important;
+}
+
+span.mat-option-text {
+    color: black;
+}

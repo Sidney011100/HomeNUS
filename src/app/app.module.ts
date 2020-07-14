@@ -27,6 +27,7 @@ import { CalendarComponent } from './hallwelcome/calendar/calendar.component';
 
 import { AddAnnouncementComponent } from './hallwelcome/home/add-announcement/add-announcement.component';
 import { AddBookingComponent } from './booking/add-booking/add-booking.component';
+import { FacilityBookingComponent } from './booking/facility-booking/facility-booking.component';
 import { DateBookingComponent } from './booking/date-booking/date-booking.component';
 import { TimeBookingComponent } from './booking/time-booking/time-booking.component';
 import { ConfirmBookingComponent } from './booking/time-booking/confirm-booking/confirm-booking.component';
@@ -57,6 +58,7 @@ const isIE = window.navigator.userAgent.indexOf('MSIE ') > -1 || window.navigato
       CalendarComponent,
       AddAnnouncementComponent,
       AddBookingComponent,
+      FacilityBookingComponent,
       DateBookingComponent,
       TimeBookingComponent,
       ConfirmBookingComponent,

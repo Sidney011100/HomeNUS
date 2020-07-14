@@ -1,0 +1,29 @@
+@import '~@angular/material/theming';
+@include mat-core();
+
+$my-app-primary: mat-palette($mat-orange, 100, 200, A100);
+$my-app-accent:  mat-palette($mat-pink, 500, 900, A100);
+$my-app-warn:    mat-palette($mat-deep-orange);
+// $background-color: map_get($mat-deep-orange, 50);
+$mat-dark-theme-background: (
+    background: map_get($mat-orange, 50)
+);
+
+$theme: mat-dark-theme($my-app-primary, $my-app-accent, $my-app-warn);
+
+// Set custom background color
+$custom-background-color: map_get($mat-red, 50);
+
+
+
+$background: map-get($theme, background);
+$background: map_merge($background, (background: $custom-background-color));
+$theme: map_merge($theme, (background: $background));
+
+
+// // Insert custom background color
+// $background: map-get($theme, background);
+// $background: map_merge($background, (background: $background-color));
+// $theme: map_merge($theme, (background: $background));
+
+@include angular-material-theme($theme);

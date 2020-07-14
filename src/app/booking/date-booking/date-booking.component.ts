@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { BookingService } from '../booking.service';
 import { Subscription } from 'rxjs';
 import { Facility } from '../facility.model';
@@ -11,9 +11,8 @@ import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/fires
   templateUrl: './date-booking.component.html',
   styleUrls: ['./date-booking.component.css']
 })
-export class DateBookingComponent implements OnInit, OnDestroy {
-  dateSubscription: Subscription;
-  facilitySubscription: Subscription;
+export class DateBookingComponent implements OnInit {
+  fbSubscription: Subscription[] = [];
   dateCollection: AngularFirestoreCollection<Date>;
   selectedFacility: Facility;
   displayDates = [];
@@ -24,15 +23,15 @@ export class DateBookingComponent implements OnInit, OnDestroy {
               private database: AngularFirestore) { }
 
   ngOnInit() {
-    this.facilitySubscription = this.bookingService.facilitySelected.subscribe(facility => {
+    this.bookingService.firebaseSubscriptions.push(this.bookingService.facilitySelected.subscribe(facility => {
       this.selectedFacility = facility;
       this.fetchDates();
-    });
+    }));
 
   }
 
   fetchDates() {
-      this.dateSubscription = this.database.collection<Facility>('facilities')
+      this.bookingService.firebaseSubscriptions.push(this.database.collection<Facility>('facilities')
       .snapshotChanges()
       .pipe(map(docArray => {
         const filtered = docArray.filter(doc =>
@@ -42,27 +41,20 @@ export class DateBookingComponent implements OnInit, OnDestroy {
         return filtered[0].payload.doc.id;
       }))
       .subscribe(result => {
-        this.dateCollection = this.database.collection('facilities').doc(result).collection<Date>('dates');
-        this.dateCollection.valueChanges()
-        .subscribe(results => {
+        this.dateCollection = this.database.collection('facilities')
+                                            .doc(result)
+                                            .collection<Date>('dates', ref => ref.orderBy('date', 'asc'));
+        // unhandled subs
+        this.bookingService.firebaseSubscriptions.push(this.dateCollection.valueChanges().subscribe(results => {
           this.displayDates = results;
-          });
-        });
+          }));
+        }));
   }
 
   dateClicked(date: Date) {
     this.dateSelected = date;
     if (this.dateSelected) {
       this.bookingService.dateSelected.next({date: this.dateSelected, facilityId: this.facilityId});
-    }
-  }
-
-  ngOnDestroy() {
-    if (this.facilitySubscription) {
-      this.facilitySubscription.unsubscribe();
-    }
-    if (this.dateSubscription) {
-      this.dateSubscription.unsubscribe();
     }
   }
 
