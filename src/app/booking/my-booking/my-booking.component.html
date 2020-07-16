@@ -2,7 +2,7 @@
 
 <div class="divider" style="z-index: 1000;"></div>
 
-<div fxLayoutAlign="left center" >
+<div fxLayoutAlign="left center" fxlayoutGap.lt-md="10px" class="filter">
   <mat-form-field fxFlex="80%">
       <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Filter">
   </mat-form-field>

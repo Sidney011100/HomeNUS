@@ -4,6 +4,10 @@ h2 {
     font-size: 1.2em;
     padding: 20px 20px 0px 20px;
 }
+h6 {
+    color: #deb992;
+    margin-top: 0px;
+}
 
 .divider {
     position: absolute;
@@ -131,6 +135,10 @@ table{
      -moz-hyphens: auto;
      -webkit-hyphens: auto;
      hyphens: auto;
+   }
+
+   .mat-tab-label, .mat-tab-link {
+       color: #deb992
    }
 /*    
    .mat-column-userimage {

@@ -36,9 +36,13 @@
      [routerLink]="link.path"
      routerLinkActive #rla="routerLinkActive"
      [routerLinkActiveOptions]="{exact:true}"
-     [active]="rla.isActive">
+     [active]="rla.isActive"
+     rlaActive="rla.isActive">
     {{link.label}}
   </a>
 </nav>
 
+<h6 *ngIf="!rlaActive">Select the tabs above</h6>
+
 <router-outlet></router-outlet>
+

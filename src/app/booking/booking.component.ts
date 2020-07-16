@@ -20,6 +20,7 @@ export class BookingComponent implements OnInit{
   selectedFacility: Facility;
   selectedDate: Date;
   user: User;
+  rlaActive: boolean;
 
   navLinks = [
     { path: 'facility-booking', label: 'New Booking', component: FacilityBookingComponent },

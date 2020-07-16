@@ -23,6 +23,7 @@ export class BookingService {
   pendingSubject = new Subject<Booking[]>();
   pendingBookings: Booking[];
   firebaseSubscriptions: Subscription[] = [];
+  beginActivity = false;
 
   constructor(private database: AngularFirestore) { }
 
@@ -58,11 +59,12 @@ export class BookingService {
     }
 
     updateDateInFacility(facility: Facility) {
-      const facilitiesCollection = this.database.collection('facilities', x => x.where('name', '==', facility.name))
+      const facilitiesCollection = this.firebaseSubscriptions.push(this.database
+      .collection('facilities', x => x.where('name', '==', facility.name))
       .get().subscribe(x => {
         const datesCollection = this.database.collection('facilities').doc(x.docs[0].id)
                                   .collection<Date>('dates', ref => ref.orderBy('date', 'asc'));
-        datesCollection.get()
+        this.firebaseSubscriptions.push(datesCollection.get()
           .subscribe(y => {
             // const today = new Date();
             // datesCollection.doc(y.docs[y.size - 1].id).get().subscribe( z => {
@@ -74,7 +76,7 @@ export class BookingService {
                 dateDoc.set({dayFull: false, date: today});
                 // check if there is already a collection of timing
                 const timings = dateDoc.collection('timings');
-                timings.get().subscribe(arrayOfTimings => {
+                this.firebaseSubscriptions.push(timings.get().subscribe(arrayOfTimings => {
                   if (arrayOfTimings.size === 0) {
                     for (let j = 0; j < 17; j++) {
                       today.setHours(7 + j, 0, 0);
@@ -82,10 +84,10 @@ export class BookingService {
                               .set({booked: false, date: today, approved: false, name: this.setTimeRange(today.getHours())});
                     }
                   }
-                });
+                }));
               }
-          });
-      });
+          }));
+      }));
     }
 
     setTwentyFourHourClock(hour: number) {

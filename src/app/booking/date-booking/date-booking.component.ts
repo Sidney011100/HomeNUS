@@ -61,8 +61,6 @@ export class DateBookingComponent implements OnInit {
         }));
   }
 
-  
-
   dateClicked(date: Date) {
     this.dateSelected = date;
     if (this.dateSelected) {

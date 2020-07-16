@@ -5,6 +5,10 @@ h2 {
     padding: 20px 20px 0px 20px;
 }
 
+.filter {
+    padding-left: 10px;
+}
+
 .divider {
     position: absolute;
     left: 0;
@@ -135,6 +139,10 @@ table{
      -moz-hyphens: auto;
      -webkit-hyphens: auto;
      hyphens: auto;
+   }
+
+   .mat-form-field-infix, .mat-form-field, div input {
+    color: #deb992;
    }
 /*    
    .mat-column-userimage {
