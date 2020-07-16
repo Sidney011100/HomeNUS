@@ -1,13 +1,15 @@
-<div class="addFacility">
+<div fxLayoutAlign="center center" fxLayout="column">
+<div class="addFacility" >
   <button class="add-btn" mat-raised-button (click)="openModal()" *ngIf="auth.canEdit(user)">
     <mat-icon>add</mat-icon>
     <span>Add a facility for booking</span>
   </button>
 
-</div><h2>Make a new Booking</h2>
+</div>
 
-<div class="divider" style="z-index: 1000;"></div>
+<h2>Make a new Booking</h2>
 
+<div>
 <div fxLayoutAlign="left center" class="filter">
   <mat-form-field fxFlex="80%" color="primary">
     <input class="filter-field" matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Filter" color="primary">
@@ -47,4 +49,6 @@
 <!-- End of Bookings Table -->
 
 <app-date-booking id="date"></app-date-booking>
+
+</div>
 

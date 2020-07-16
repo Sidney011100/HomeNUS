@@ -48,11 +48,11 @@ export class BookingService {
               today.setDate(today.getDate() + i);
               const dateDoc = dates.doc(`${today.toDateString()}`);
               const timings = dateDoc.collection('timings');
-              dateDoc.update({dayFull: false, date: today});
+              dateDoc.set({dayFull: false, date: today});
               for (let j = 0; j < 17; j++) {
                 today.setHours(7 + j, 0, 0);
                 timings.doc(this.setTwentyFourHourClock(today.getHours()))
-                    .update({ date: today, approved: false, name: this.setTimeRange(today.getHours()) });
+                    .set({ date: today, approved: false, name: this.setTimeRange(today.getHours()) });
               }
             }
           });

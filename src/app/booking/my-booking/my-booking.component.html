@@ -13,13 +13,18 @@
     <ng-container matColumnDef="facility">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
       <mat-cell *matCellDef="let element">
-        <button class="select-btn" mat-raised-button (click)="onClick(element)"> {{ element.facility }} </button>
+        {{ element.facility }}
       </mat-cell>
     </ng-container>
   
     <ng-container matColumnDef="date">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Date</mat-header-cell>
-      <mat-cell *matCellDef="let element">{{ element.dateId.slice(0, 10) }}</mat-cell>
+
+      <mat-cell *matCellDef="let element" fxLayoutAlign="center">
+        <button class="select-btn" mat-raised-button (click)="onClick(element)"> {{ element.dateId.slice(4, 10) }} </button>
+
+        
+      </mat-cell>
     </ng-container>
   
     <ng-container matColumnDef="time">
@@ -29,7 +34,7 @@
   
     <ng-container matColumnDef="approved">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Approved</mat-header-cell>
-      <mat-cell *matCellDef="let element">{{ element.approved }}</mat-cell>
+      <mat-cell *matCellDef="let element">{{ element.approved ? 'Approved': 'Denied'}}</mat-cell>
     </ng-container>
   
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
@@ -41,3 +46,4 @@
                 [pageSizeOptions]="[5, 10, 15]">
   </mat-paginator>
 </div>
+<h6>Click on the date of the booking made for more details</h6>

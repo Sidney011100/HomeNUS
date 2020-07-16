@@ -125,7 +125,6 @@ export class AuthService {
             login_hint: 'user@firstadd.onmicrosoft.com',
         });
         const credential = await this.signInWithPopup(provider);
-        console.log(credential.user);
         return this.updateUserData(credential.user);
     }
 

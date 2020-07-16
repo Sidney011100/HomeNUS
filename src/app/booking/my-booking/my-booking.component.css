@@ -43,6 +43,7 @@
     position: relative;
     right: 1em;
     background-color: #313131;
+    flex:1;
 }
 
 table{
@@ -54,6 +55,10 @@ h2 {
     color: #deb992;
     font-size: 1.2em;
     padding: 20px 20px 0px 20px;
+}
+
+h6 {
+    color: #deb992;
 }
 
 .filter {

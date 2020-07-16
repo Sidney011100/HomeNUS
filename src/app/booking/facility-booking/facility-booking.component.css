@@ -30,11 +30,11 @@ mat-cell a:hover, mat-cell a:active {
 
 .add-btn {
     position: relative;
-    left: 30%;
+    right: 30%;
+    padding-left: 10px;
     bottom: 1.5em;
     background-color: #deb992;
     color: #1a1a1a;
-    margin-top: 20px;
     font-weight: bold;
 }
 
