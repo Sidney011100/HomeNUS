@@ -90,14 +90,14 @@ export class PendingBookingComponent implements OnInit, AfterViewInit, OnDestroy
       return approvedBooking[0].payload.doc.id;
     }))
     .subscribe(bookingId => {
-      this.database.collection('bookings').doc(bookingId).update({pending: false, approved: true});
+      this.database.collection('bookings').doc(bookingId).update({pending: false, approved: false});
     });
 
     // update collection: facilities
     this.database.collection('facilities').doc(element.facilityId)
                 .collection('dates').doc(element.dateId)
                 .collection('timings').doc(element.timeId)
-                .update({booked: false, approved: true});
+                .update({booked: false, approved: false});
 
     // update collection users
     this.database.collection('users').doc(element.userId)

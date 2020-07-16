@@ -25,7 +25,7 @@
       <mat-header-cell *matHeaderCellDef mat-sort-header>Action</mat-header-cell>
       <mat-cell *matCellDef="let element">
         <button class="pending-btn" mat-raised-button (click)="approveClicked(element)" *ngIf="element.pending">Pending</button>
-        <button class="misc-btn" *ngIf="!element.pending" mat-button>{{ element.approved ? 'Approved' : 'Denied' }}</button>
+        <button class="misc-btn" *ngIf="!element.pending" mat-button>{{ element.approved ? 'Approved': 'Denied'}}</button>
       </mat-cell>
     </ng-container>
   

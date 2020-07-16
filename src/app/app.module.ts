@@ -40,6 +40,7 @@ import { MsalModule, MsalInterceptor } from '@azure/msal-angular';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { UIService } from './shared/ui.service';
+import { RouterModule } from '@angular/router';
 
 const isIE = window.navigator.userAgent.indexOf('MSIE ') > -1 || window.navigator.userAgent.indexOf('Trident/') > -1;
 
@@ -58,14 +59,14 @@ const isIE = window.navigator.userAgent.indexOf('MSIE ') > -1 || window.navigato
       CalendarComponent,
       AddAnnouncementComponent,
       AddBookingComponent,
-      FacilityBookingComponent,
       DateBookingComponent,
       TimeBookingComponent,
       ConfirmBookingComponent,
       MyBookingComponent,
       PendingBookingComponent,
       ApprovalComponent,
-      DeleteBookingComponent
+      DeleteBookingComponent,
+      FacilityBookingComponent
    ],
    imports: [
       BrowserModule,

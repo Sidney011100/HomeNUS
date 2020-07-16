@@ -55,7 +55,9 @@ export class TimeBookingComponent implements OnInit {
       this.facilityId = chosenDate.facilityId;
       this.fetchTimings();
     }));
-    this.bookingService.firebaseSubscriptions.push(this.auth.user$.subscribe(user => this.user = user));
+    this.bookingService.firebaseSubscriptions.push(this.auth.user$.subscribe(user => {
+      this.user = user;
+    }));
   }
 
   fetchTimings() {
@@ -132,7 +134,7 @@ export class TimeBookingComponent implements OnInit {
       userName: this.user.name,
       nusNetId: nusId
     };
-    // add booking to user's profile
+    // add booking to user's profile`
     this.database.collection('users').doc(this.user.userId)
         .collection('bookings')
         .add(booking)
@@ -145,7 +147,7 @@ export class TimeBookingComponent implements OnInit {
           this.database.collection('bookings').add(result)
         );
     // navigate to my bookings to let the person view their booking
-    this.router.navigate(['/my-booking']);
+    this.router.navigate(['booking/my-booking']);
   }
 
 }

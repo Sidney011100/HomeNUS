@@ -6,6 +6,7 @@ import { map } from 'rxjs/operators';
 import { SelectedDate } from './selectedDate.model';
 import { User } from '../auth/user.model';
 import { Booking } from './booking.model';
+import { Timing } from './time-booking/timing.model';
 
 @Injectable({
   providedIn: 'root'
@@ -37,6 +38,7 @@ export class BookingService {
 
     // when admin adds a new Facility //
     addDataToDatabase(facility: Facility) {
+    // can be more efficient, need not sieve through all the files
         this.database.collection('facilities').add(facility)
           .then(documentReference => {
             const dates = this.database.collection('facilities').doc(documentReference.id).collection('dates');
@@ -45,19 +47,47 @@ export class BookingService {
               today.setDate(today.getDate() + i);
               const dateDoc = dates.doc(`${today.toDateString()}`);
               const timings = dateDoc.collection('timings');
-              dateDoc.set({dayFull: false, date: today});
+              dateDoc.update({dayFull: false, date: today});
               for (let j = 0; j < 17; j++) {
                 today.setHours(7 + j, 0, 0);
                 timings.doc(this.setTwentyFourHourClock(today.getHours()))
-                    .set({booked: false, date: today, approved: false, name: this.setTimeRange(today.getHours()) });
+                    .update({ date: today, approved: false, name: this.setTimeRange(today.getHours()) });
               }
             }
           });
     }
 
-    // addMonthlyDate() {
-
-    // }
+    updateDateInFacility(facility: Facility) {
+      const facilitiesCollection = this.database.collection('facilities', x => x.where('name', '==', facility.name))
+      .get().subscribe(x => {
+        const datesCollection = this.database.collection('facilities').doc(x.docs[0].id)
+                                  .collection<Date>('dates', ref => ref.orderBy('date', 'asc'));
+        datesCollection.get()
+          .subscribe(y => {
+            // const today = new Date();
+            // datesCollection.doc(y.docs[y.size - 1].id).get().subscribe( z => {
+            //   console.log(z.data()['date'].getDate());
+              for (let i = 0; i < 33; i++) {
+                const today = new Date();
+                today.setDate(today.getDate() + i);
+                console.log(today.toDateString());
+                const dateDoc = datesCollection.doc(`${today.toDateString()}`);
+                dateDoc.set({dayFull: false, date: today});
+                // check if there is already a collection of timing
+                const timings = dateDoc.collection('timings');
+                timings.get().subscribe(arrayOfTimings => {
+                  if (arrayOfTimings.size === 0) {
+                    for (let j = 0; j < 17; j++) {
+                      today.setHours(7 + j, 0, 0);
+                      timings.doc<Timing>(this.setTwentyFourHourClock(today.getHours()))
+                              .set({booked: false, date: today, approved: false, name: this.setTimeRange(today.getHours())});
+                    }
+                  }
+                });
+              }
+          });
+      });
+    }
 
     setTwentyFourHourClock(hour: number) {
       return hour < 10 ? '0' + hour + '00' : hour + '00';
@@ -100,7 +130,6 @@ export class BookingService {
                       doc.payload.doc.data()['dateId'] === element.dateId &&
                       doc.payload.doc.data()['timeId'] === element.timeId
                     );
-                    console.log(docId.length);
                     return docId[0].payload.doc.id;
                   }))
                   .subscribe(id => this.database.collection('users').doc(element.userId)

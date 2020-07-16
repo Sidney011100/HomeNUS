@@ -4,6 +4,7 @@ export interface Booking {
     date: Date;
     time: string;
     approved?: boolean;
+    decided?: boolean;
     pending: boolean;
     facilityId: string;
     dateId: string;

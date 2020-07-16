@@ -133,6 +133,8 @@ export class AuthService {
         return this.isAuthenticated;
     }
 
+
+
     // Sets user data to firestore on login
     private updateUserData(user) { // good
         const userRef: AngularFirestoreDocument<any> = this.database.doc(`users/${user.uid}`);
@@ -173,6 +175,19 @@ export class AuthService {
     canDelete(user: User): boolean {
         const allowed = ['admin'];
         return this.checkAuthorization(user, allowed);
+    }
+
+    isAdmin(user: User): boolean {
+        let admin: boolean;
+        this.user$.subscribe(user => {
+           if (user.roles['admin'] ) {
+               admin = true;
+           } else {
+               admin = false;
+           }
+        });
+        console.log('admin: ' + admin);
+        return admin;
     }
     ///// End of Role-based Authorization //////
 

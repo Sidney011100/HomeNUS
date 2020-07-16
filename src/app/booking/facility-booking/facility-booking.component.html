@@ -1,4 +1,10 @@
-<h2>Make a new Booking</h2>
+<div class="addFacility">
+  <button class="add-btn" mat-raised-button (click)="openModal()" *ngIf="auth.canEdit(user)">
+    <mat-icon>add</mat-icon>
+    <span>Add a facility for booking</span>
+  </button>
+
+</div><h2>Make a new Booking</h2>
 
 <div class="divider" style="z-index: 1000;"></div>
 
@@ -8,12 +14,7 @@
   </mat-form-field>
 </div>
 
-<div class="addFacility">
-  <button class="add-btn" mat-raised-button (click)="openModal()" *ngIf="auth.canEdit(user)">
-    <mat-icon>add</mat-icon>
-    <span>Add a facility</span>
-  </button>
-</div>
+
 <h4>Start with selecting a facility from the table below: </h4>
 <!-- Bookings Table -->
 <div class="booking-table">
@@ -21,7 +22,8 @@
     <ng-container matColumnDef="name" >
       <mat-header-cell *matHeaderCellDef mat-sort-header class="name" style="width:150px;">Name</mat-header-cell>
       <mat-cell *matCellDef="let element" class="name">
-        <button class="select-btn" mat-raised-button (click)="facilityClicked(element.name)" class="name">{{ element.name }}</button>
+        <button class="select-btn" mat-raised-button (click)="facilityClicked(element.name)" class="name" >{{ element.name }}
+        </button>
       </mat-cell>
     </ng-container>
 
@@ -43,4 +45,6 @@
   </mat-paginator>
 </div>
 <!-- End of Bookings Table -->
+
+<app-date-booking id="date"></app-date-booking>
 

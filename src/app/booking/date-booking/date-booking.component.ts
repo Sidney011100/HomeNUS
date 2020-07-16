@@ -44,7 +44,7 @@ export class DateBookingComponent implements OnInit {
         this.dateCollection = this.database.collection('facilities')
                                             .doc(result)
                                             .collection<Date>('dates', ref => ref.orderBy('date', 'asc'));
-        // unhandled subs
+                                            // filter out dates here
         this.bookingService.firebaseSubscriptions.push(this.dateCollection.valueChanges().subscribe(results => {
           this.displayDates = results;
           }));

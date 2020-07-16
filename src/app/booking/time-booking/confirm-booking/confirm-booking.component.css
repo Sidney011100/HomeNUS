@@ -12,7 +12,7 @@
 }
 
 /deep/ .mat-option {
-    color: black !important;
+    color: black;
 }
 
 span.mat-option-text {

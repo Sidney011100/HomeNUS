@@ -1,54 +1,9 @@
-<mat-tab-group animationDuration="1200ms">
-
+<!-- <mat-tab-group animationDuration="1200ms">
   <mat-tab>
     <ng-template mat-tab-label>
       <mat-icon>announcement</mat-icon>
       New Booking
     </ng-template>
-
-    <!-- <h2>Bookings</h2>
-
-    <div class="divider" style="z-index: 1000;"></div>
-
-    <div fxLayoutAlign="left center">
-      <mat-form-field fxFlex="80%" color="primary">
-        <input class="filter-field" matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Filter" color="primary">
-      </mat-form-field>
-    </div>
-
-    <div class="addFacility">
-      <button class="add-btn" mat-raised-button (click)="openModal()" *ngIf="auth.canEdit(user)">
-        <mat-icon>add</mat-icon>
-        <span>Add a facility</span>
-      </button>
-    </div>
-    <div class="booking-table">
-      <mat-table [dataSource]="dataSource" matSort>
-        <ng-container matColumnDef="name" >
-          <mat-header-cell *matHeaderCellDef mat-sort-header class="name" style="width:150px;">Name</mat-header-cell>
-          <mat-cell *matCellDef="let element" class="name">
-            <button class="select-btn" mat-raised-button (click)="facilityClicked(element.name)" class="name">{{ element.name }}</button>
-          </mat-cell>
-        </ng-container>
-  
-        <ng-container matColumnDef="capacity">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>Capacity</mat-header-cell>
-          <mat-cell *matCellDef="let element">{{ element.capacity | number }}</mat-cell>
-        </ng-container>
-  
-        <ng-container matColumnDef="block">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>Block</mat-header-cell>
-          <mat-cell *matCellDef="let element">{{ element.block }}</mat-cell>
-        </ng-container>
-  
-        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-      </mat-table>
-  
-      <mat-paginator #paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 15]">
-      </mat-paginator>
-    </div>
-    End of Bookings Table -->
     <app-facility-booking></app-facility-booking>
 
     <app-date-booking *ngIf="selectedFacility"></app-date-booking>
@@ -57,8 +12,6 @@
       <app-time-booking *ngIf="selectedDate"></app-time-booking>
     </div>
   </mat-tab>
-
-  <!-- End of 1st tab -->
 
   <mat-tab>
     <ng-template mat-tab-label>
@@ -75,5 +28,17 @@
     </ng-template>
     <app-pending-booking></app-pending-booking>
   </mat-tab>
+</mat-tab-group> -->
 
-</mat-tab-group>
+<nav mat-tab-nav-bar >
+  <a mat-tab-link
+     *ngFor="let link of navLinks"
+     [routerLink]="link.path"
+     routerLinkActive #rla="routerLinkActive"
+     [routerLinkActiveOptions]="{exact:true}"
+     [active]="rla.isActive">
+    {{link.label}}
+  </a>
+</nav>
+
+<router-outlet></router-outlet>

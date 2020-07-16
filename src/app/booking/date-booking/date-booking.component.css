@@ -1,6 +1,6 @@
-* {
+/* * {
     color: #deb992;
-}
+} */
 
 .user-instruc {
     margin-left: 20px;
@@ -8,6 +8,6 @@
 }
 
 .mat-raised-button {
-    color: black;
+    color: black !important;
     background-color: #deb992;
 }
