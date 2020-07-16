@@ -70,7 +70,6 @@ export class BookingService {
               for (let i = 0; i < 33; i++) {
                 const today = new Date();
                 today.setDate(today.getDate() + i);
-                console.log(today.toDateString());
                 const dateDoc = datesCollection.doc(`${today.toDateString()}`);
                 dateDoc.set({dayFull: false, date: today});
                 // check if there is already a collection of timing

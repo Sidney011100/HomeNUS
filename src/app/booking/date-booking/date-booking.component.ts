@@ -44,12 +44,24 @@ export class DateBookingComponent implements OnInit {
         this.dateCollection = this.database.collection('facilities')
                                             .doc(result)
                                             .collection<Date>('dates', ref => ref.orderBy('date', 'asc'));
-                                            // filter out dates here
         this.bookingService.firebaseSubscriptions.push(this.dateCollection.valueChanges().subscribe(results => {
-          this.displayDates = results;
+          // this.displayDates = results;
+          // filter out dates here
+          const today = new Date();
+          this.displayDates = results.filter(x => {
+            const dateFromArray: Date = x['date'].toDate();
+            return today.getMonth() === dateFromArray.getMonth()
+                  ? dateFromArray.getDate() >= today.getDate()
+                  : today.getMonth() + 1 === dateFromArray.getMonth()
+                    ? dateFromArray.getDate() < today.getMonth()
+                    : false;
+          });
+          // console.log(results[0]['date'].toDate().getMonth());
           }));
         }));
   }
+
+  
 
   dateClicked(date: Date) {
     this.dateSelected = date;
