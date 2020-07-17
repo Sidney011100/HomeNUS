@@ -53,7 +53,7 @@ export class DateBookingComponent implements OnInit {
             return today.getMonth() === dateFromArray.getMonth()
                   ? dateFromArray.getDate() >= today.getDate()
                   : today.getMonth() + 1 === dateFromArray.getMonth()
-                    ? dateFromArray.getDate() < today.getMonth()
+                    ? dateFromArray.getDate() < today.getDate()
                     : false;
           });
           // console.log(results[0]['date'].toDate().getMonth());
@@ -66,6 +66,7 @@ export class DateBookingComponent implements OnInit {
     if (this.dateSelected) {
       this.bookingService.dateSelected.next({date: this.dateSelected, facilityId: this.facilityId});
     }
+    document.getElementById("time").scrollIntoView({behavior: "smooth"});
   }
 
 }

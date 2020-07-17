@@ -54,6 +54,7 @@ export class FacilityBookingComponent implements OnInit,  AfterViewInit, OnDestr
     this.selectedFacility = this.dataSource.data.filter(a => a.name === facility)[0];
     this.bookingService.updateDateInFacility(this.selectedFacility);
     this.bookingService.facilitySelected.next(this.selectedFacility);
+    document.getElementById("date").scrollIntoView({behavior: "smooth"});
   }
 
   ngAfterViewInit() {
