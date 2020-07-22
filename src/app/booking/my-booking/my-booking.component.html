@@ -34,7 +34,7 @@
   
     <ng-container matColumnDef="approved">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Approved</mat-header-cell>
-      <mat-cell *matCellDef="let element">{{ element.approved ? 'Approved': 'Denied'}}</mat-cell>
+      <mat-cell *matCellDef="let element">{{ element.approved ? 'Approved': element.approved === false ?'Denied' : 'Pending'}}</mat-cell>
     </ng-container>
   
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
