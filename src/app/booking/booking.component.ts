@@ -8,6 +8,7 @@ import { MyBookingComponent } from './my-booking/my-booking.component';
 import { PendingBookingComponent } from './pending-booking/pending-booking.component';
 import { User } from 'src/app/auth/user.model';
 
+import { AdminGuard } from '../auth/admin.guard';
 
 
 @Component({
@@ -23,30 +24,29 @@ export class BookingComponent implements OnInit{
   rlaActive: boolean;
 
   navLinks = [
-    { path: 'facility-booking', label: 'New Booking', component: FacilityBookingComponent },
     { path: 'my-booking', label: 'My Bookings', component: MyBookingComponent },
-    { path: 'pending-booking', label: 'Pending Bookings', component: PendingBookingComponent }
+    { path: 'pending-booking', label: 'Pending Bookings', component: PendingBookingComponent, canActivate: [AdminGuard] }
   ];
 
   constructor(private bookingService: BookingService,
               public auth: AuthService) { }
 
   ngOnInit() {
+    this.userSubscription = this.auth.user$.subscribe(user => {
+      this.user = user;
+      if (!this.auth.canEdit(this.user)) {
+        this.navLinks = [
+          { path: 'my-booking', label: 'My Bookings', component: MyBookingComponent }
+        ];
+      }
+    });
     this.bookingService.fetchFacilitiesData();
     this.bookingService.facilitySelected.subscribe(facility =>
       this.selectedFacility = facility);
     this.bookingService.dateSelected.subscribe(chosenDate => {
       this.selectedDate = chosenDate.date;
     });
-    this.userSubscription = this.auth.user$.subscribe(user => {
-      this.user = user;
-      if (!this.auth.canEdit(this.user)) {
-        this.navLinks = [
-          { path: 'facility-booking', label: 'New Booking', component: FacilityBookingComponent },
-          { path: 'my-booking', label: 'My Bookings', component: MyBookingComponent }
-        ];
-      }
-    });
+
   }
 
 

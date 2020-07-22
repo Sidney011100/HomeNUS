@@ -6,15 +6,13 @@ import { HallWelcomeComponent } from './hallwelcome/hallwelcome.component';
 import { BookingComponent } from './booking/booking.component';
 import { MyBookingComponent } from './booking/my-booking/my-booking.component';
 import { PendingBookingComponent } from './booking/pending-booking/pending-booking.component';
-
+import { FacilityBookingComponent } from './booking/facility-booking/facility-booking.component';
 
 import { AuthGuard } from './auth/auth.guard';
 import { AdminGuard } from './auth/admin.guard';
 
 import { MsalGuard } from '@azure/msal-angular';
-import { DateBookingComponent } from './booking/date-booking/date-booking.component';
-import { FacilityBookingComponent } from './booking/facility-booking/facility-booking.component';
-import { TimeBookingComponent } from './booking/time-booking/time-booking.component';
+
 
 
 const routes: Routes = [
@@ -23,11 +21,12 @@ const routes: Routes = [
   { path: 'welcome', component: HallWelcomeComponent, canActivate: [MsalGuard] },
   { path: 'booking', component: BookingComponent, canActivate: [AuthGuard],
     children: [
+      { path: '', component: FacilityBookingComponent, canActivate: [AuthGuard] },
       { path: 'facility-booking', component: FacilityBookingComponent, canActivate: [AuthGuard] },
-      { path: 'date-booking', component: DateBookingComponent, canActivate: [AuthGuard] },
+      { path: 'date-booking', loadChildren: './booking/date-booking/date-booking.component', canActivate: [AuthGuard] },
       { path: 'my-booking', component: MyBookingComponent, canActivate: [AuthGuard] },
       { path: 'pending-booking', component: PendingBookingComponent, canActivate: [AuthGuard, AdminGuard] },
-      { path: 'time-booking', component: TimeBookingComponent, canActivate: [AuthGuard] }
+      { path: 'time-booking', loadChildren: './booking/time-booking/time-booking.component', canActivate: [AuthGuard] }
     ] },
 
 ];
