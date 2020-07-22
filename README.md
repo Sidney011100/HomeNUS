@@ -3,6 +3,11 @@
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.7.
 
 ## Development server
+### Getting started 
+1. To set up Angular on your local desktop follow the instructions in: https://angular.io/guide/setup-local.
+2. Clone the code above
+3. To link the firebase to your own:
+  
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
