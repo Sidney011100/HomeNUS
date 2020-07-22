@@ -41,7 +41,9 @@ Head over to: https://dev.to/luminousmen/what-are-the-best-software-engineering-
    - Enable Google provider
    - Enable Microsoft Provider
 2. Firebase > Go to Console > Database > Rules
-  Edit the rules to be as follows: 
+
+Edit the rules to be as follows: 
+
 `rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
