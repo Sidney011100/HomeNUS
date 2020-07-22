@@ -1,7 +1,5 @@
 # HomeNus
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.7.
-
 This project is an on-going NUS Orbital 2020 project by 2 NUS Computing students. 
 
 ## Aim 
@@ -94,7 +92,7 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app w
 
 ## Demo
 
-Checkout: https://homenus-937e9.web.app/
+Live Demo: https://homenus-937e9.web.app/
 
 ## User Guide 
 
@@ -104,14 +102,3 @@ https://docs.google.com/document/d/1_oq4h-pjhGScRr2vAG89amhfyuNZSZztN2yE2IJPYV8/
 
 https://drive.google.com/file/d/1MWnqrEKd4FNNMqxBA2NwCA5yT7VC-XRP/view?usp=sharing
 
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
