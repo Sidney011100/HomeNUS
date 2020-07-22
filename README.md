@@ -6,10 +6,9 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 ### Getting started 
 1. To set up Angular on your local desktop follow the instructions in: https://angular.io/guide/setup-local.
 2. Clone the code above
-3. To link the firebase to your own:
-  
-
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+3. To link the firebase to your own, follow the instructions in: https://www.positronx.io/how-to-connect-firebase-realtime-nosql-cloud-database-with-angular-app-from-scratch/.
+    Using the instructions given under the headers "Setup Google Firebase Database Account", "Setup Firebase (Agnularfire library) in Angular Project". The necessary AngularFirestore files have been imported. 
+4. Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
 ## Code scaffolding
 
