@@ -2,10 +2,6 @@ mat-sidenav {
     width:200px;
 }
 
-.navigation-items {
-    list-style: none;
-}
-
 .nav-caption {
     display: inline-block;
     padding: 6px;

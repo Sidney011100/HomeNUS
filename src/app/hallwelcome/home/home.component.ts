@@ -6,12 +6,48 @@ import { AnnouncementService } from './announcement.service';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/auth/auth.service';
 import { User } from 'src/app/auth/user.model';
+import {
+  trigger,
+  transition,
+  animate,
+  style,
+  animation,
+  sequence,
+} from '@angular/animations';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
-  encapsulation: ViewEncapsulation.Emulated
+  encapsulation: ViewEncapsulation.Emulated,
+  animations: [
+    trigger('a-fade', [
+      transition('void => *', [
+        style({
+          opacity: '0',
+          transform: 'translateX(-550px)',
+          'box-shadow': 'none',
+        }),
+        sequence([
+          animate(
+            '1s ease',
+            style({
+              opacity: '0.3',
+              transform: 'translateX(0)',
+              'box-shadow': 'none',
+            })
+          ),
+          animate(
+            '0.5s ease',
+            style({
+              opacity: 1,
+              transform: 'translateX(0)',
+            })
+          )
+        ]),
+      ]),
+    ]),
+  ],
 })
 export class HomeComponent implements OnInit, OnDestroy {
   announcements: Announcement[];
@@ -26,12 +62,16 @@ export class HomeComponent implements OnInit, OnDestroy {
     private dialog: MatDialog,
     private announcementService: AnnouncementService,
     public auth: AuthService
-    ) { }
+  ) {}
 
   ngOnInit(): void {
-    this.announcementSubscription = this.announcementService.dataChanged.subscribe(a => this.announcements = a);
+    this.announcementSubscription = this.announcementService.dataChanged.subscribe(
+      (a) => (this.announcements = a)
+    );
     this.announcementService.fetchData();
-    this.userSubscription = this.auth.user$.subscribe(user => this.user = user);
+    this.userSubscription = this.auth.user$.subscribe(
+      (user) => (this.user = user)
+    );
   }
 
   ngOnDestroy() {

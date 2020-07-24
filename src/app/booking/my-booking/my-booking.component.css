@@ -1,10 +1,24 @@
-/deep/ .ng-tns-c114-4 {   /*filter field*/
+ /*filter field*/
+/* ::ng-deep .ng-tns-c114-4 {  
     color: #deb992;
     margin: auto;
+} */
+
+.divider {
+    position: relative;
+    margin: auto;
+    height: 1px;
+    width: 60%;
+    background-color: #deb992;
+    margin-bottom: 20px;
 }
 
 .booking-table {
     margin: 10px;
+}
+
+.filter-field {
+    margin: auto;
 }
 
 .mat-cell, .mat-header-cell, .mat-raised-button, .mat-paginator {

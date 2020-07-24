@@ -3,12 +3,41 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from '../auth.service';
 import { UIService } from 'src/app/shared/ui.service';
 import { Subscription } from 'rxjs';
+import { trigger, transition, style, sequence, animate } from '@angular/animations';
 
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
+  animations: [
+    trigger('fade', [
+      transition('void => *', [
+        style({
+          opacity: '0',
+          transform: 'translateX(-550px)',
+          'box-shadow': 'none',
+        }),
+        sequence([
+          animate(
+            '2s ease',
+            style({
+              opacity: '0.3',
+              transform: 'translateX(0)',
+              'box-shadow': 'none',
+            })
+          ),
+          animate(
+            '0.5s ease',
+            style({
+              opacity: 1,
+              transform: 'translateX(0)',
+            })
+          )
+        ]),
+      ]),
+    ]),
+  ]
 })
 export class LoginComponent implements OnInit, OnDestroy {
   loginForm: FormGroup;

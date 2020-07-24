@@ -13,12 +13,16 @@ import { AdminGuard } from './auth/admin.guard';
 
 import { MsalGuard } from '@azure/msal-angular';
 
+import { DateBookingComponent } from './booking/date-booking/date-booking.component';
+import { TimeBookingComponent } from './booking/time-booking/time-booking.component';
+import { LoginComponent } from './auth/login/login.component';
 
 
 const routes: Routes = [
   { path: '', component: AuthComponent },
   { path: 'welcome', component: HallWelcomeComponent, canActivate: [AuthGuard] },
   { path: 'welcome', component: HallWelcomeComponent, canActivate: [MsalGuard] },
+  { path: 'login', component: LoginComponent, canActivate: [AuthGuard] },
   { path: 'booking', component: BookingComponent, canActivate: [AuthGuard],
     children: [
       { path: '', component: FacilityBookingComponent, canActivate: [AuthGuard] },

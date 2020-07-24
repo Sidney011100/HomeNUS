@@ -1,6 +1,6 @@
-* {
+/* * {
     color: #deb992;
-}
+} */
 
 .booking-details-v1 {
     margin-left: 20px;
@@ -10,25 +10,27 @@ mat-form-field, button, mat-label  {
     width: 300px;
 }
 
-/deep/ .mat-option {
+::ng-deep .mat-option {
     color: black;
 }
 
-/deep/ .mat-option.mat-active {
+::ng-deep .mat-option.mat-active {
     font-weight: bold;
 }
 
-/deep/ .mat-option[aria-disabled=true] {
+::ng-deep .mat-option[aria-disabled=true] {
     color: rgba(0,0,0,.38)
 }
 
-/deep/ .ng-tns-c114-28 { /* Purpose of booking field */
+/* Purpose of booking field */
+/* ::ng-deep .ng-tns-c114-28 { 
     color: #deb992;
-}
+} */
 
-/deep/ .ng-tns-c114-29 { /* NUS Net ID field */
+/* NUS Net ID field */
+/* ::ng-deep .ng-tns-c114-29 { 
     color: #deb992;
-}
+} */
 
 .make-booking-btn {
     font-weight: bolder;

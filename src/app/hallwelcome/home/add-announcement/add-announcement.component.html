@@ -7,7 +7,8 @@
         </mat-form-field>
         <mat-form-field appearance="outline">
             <mat-label>Description</mat-label>
-            <input matInput type="text" ngModel name="description" required>
+            <!-- <input matInput type="text" ngModel name="description" required> -->
+            <textarea matInput type="text" ngModel name="description" required cols="15" rows="5"></textarea>
         </mat-form-field>
         <button type="submit" class="add-btn" mat-dialog-close [disabled]="f.invalid">Add</button>
     </form>

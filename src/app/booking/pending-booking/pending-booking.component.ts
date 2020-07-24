@@ -11,11 +11,66 @@ import { MatDialog } from '@angular/material/dialog';
 import { ApprovalComponent } from './approval/approval.component';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { map } from 'rxjs/operators';
+import { trigger, transition, style, sequence, animate } from '@angular/animations';
 
 @Component({
   selector: 'app-pending-booking',
   templateUrl: './pending-booking.component.html',
-  styleUrls: ['./pending-booking.component.css']
+  styleUrls: ['./pending-booking.component.css'],
+  animations: [
+    trigger('fade', [
+      transition('void => *', [
+        style({
+          opacity: '0',
+          transform: 'translateX(-550px)',
+          'box-shadow': 'none',
+        }),
+        sequence([
+          animate(
+            '1s ease',
+            style({
+              opacity: '0.3',
+              transform: 'translateX(0)',
+              'box-shadow': 'none',
+            })
+          ),
+          animate(
+            '0.5s ease',
+            style({
+              opacity: 1,
+              transform: 'translateX(0)',
+            })
+          )
+        ]),
+      ]),
+    ]),
+    trigger('fade2', [
+      transition('void => *', [
+        style({
+          opacity: '0',
+          transform: 'translateX(-550px)',
+          'box-shadow': 'none',
+        }),
+        sequence([
+          animate(
+            '1.5s ease',
+            style({
+              opacity: '0.3',
+              transform: 'translateX(0)',
+              'box-shadow': 'none',
+            })
+          ),
+          animate(
+            '0.5s ease',
+            style({
+              opacity: 1,
+              transform: 'translateX(0)',
+            })
+          )
+        ]),
+      ]),
+    ])
+  ]
 })
 export class PendingBookingComponent implements OnInit, AfterViewInit, OnDestroy {
   dataSource = new MatTableDataSource<Booking>();

@@ -1,48 +1,35 @@
-
 <div class="booking-details-v1">
-  <form fxLayout="column"
-      fxLayoutAlign="center center" 
-      [formGroup] = "timingForm"
-      #f="ngForm" 
-      (ngSubmit)="makeBooking()"  
-      *ngIf="selectedDate">
+  <form fxLayout="column" fxLayoutAlign="center center" [formGroup]="timingForm" #f="ngForm" (ngSubmit)="makeBooking()"
+    *ngIf="selectedDate">
 
     <div class="booking-details-v2">
       <mat-form-field>
-        <mat-label >Select a timing for {{ dateId }}</mat-label>
+        <mat-label>Select a timing for {{ dateId }}</mat-label>
         <mat-select [disabled]="disableSelect.value" formControlName="timing">
-          <mat-option *ngFor="let timing of timingArray" [value]="timing" [disabled]="timing.booked" >
+          <mat-option *ngFor="let timing of timingArray" [value]="timing" [disabled]="timing.booked">
             {{ timing.name }}
           </mat-option>
         </mat-select>
       </mat-form-field>
-  
+
       <mat-form-field>
-        <input type="text" 
-              matInput 
-              placeholder="Purpose of booking"
-              name="purpose"
-              required
-              minlength="10"
-              formControlName="purpose">
-              <mat-error *ngIf="timingForm.value.purpose.toString().length === 0">Field empty</mat-error>
-              <mat-error *ngIf="!(timingForm.value.purpose.toString().length === 0)">Elaborate more</mat-error>
+        <!-- <input type="text" matInput placeholder="Purpose of booking" name="purpose" required minlength="10"
+          formControlName="purpose"> -->
+        <textarea type="text" matInput placeholder="Purpose of booking" name="purpose" required minlength="10"
+        formControlName="purpose" cols="30" rows="5"></textarea>
+        <mat-error *ngIf="timingForm.value.purpose.toString().length === 0">Field empty</mat-error>
+        <mat-error *ngIf="!(timingForm.value.purpose.toString().length === 0)">Elaborate more</mat-error>
       </mat-form-field>
-  
+
       <mat-form-field>
-        <input type="text" 
-              matInput 
-              placeholder="Nus Net Id"
-              name="netId"
-              required
-              minlength="8"
-              maxlength="8"
-              formControlName="netId">
-              <mat-error *ngIf="timingForm.value.netId.toString().length === 0">Field empty</mat-error>
-              <mat-error *ngIf="!(timingForm.value.netId.toString().length === 0)">Please enter valid netId e*******</mat-error>
+        <input type="text" matInput placeholder="Nus Net Id" name="netId" required minlength="8" maxlength="8"
+          formControlName="netId">
+        <mat-error *ngIf="timingForm.value.netId.toString().length === 0">Field empty</mat-error>
+        <mat-error *ngIf="!(timingForm.value.netId.toString().length === 0)">Please enter valid netId e*******
+        </mat-error>
       </mat-form-field>
     </div>
-    
+
     <button class="make-booking-btn" type="submit" [disabled]="timingForm.invalid">Make Booking</button>
   </form>
 </div>

@@ -1,4 +1,29 @@
 .about-section {
     color: #DEB992;
-    padding: 20px;
+    padding: 20px 20px 0 20px;
+    font-weight: 100;
+}
+
+.divider {
+    position: relative;
+    margin: auto;
+    height: 1px;
+    width: 30%;
+    background-color: #deb992;
+}
+
+.divider-2 {
+    position: absolute;
+    margin: auto;
+    left: 0;
+    right: 0;
+    bottom: 20px;
+    height: 1px;
+    width: 50%;
+    background-color: #deb992;
+}
+
+img {
+    height: auto;
+    width: 70%;
 }

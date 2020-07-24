@@ -7,9 +7,22 @@ a {
     color: grey;
 }
 
-.logo {
+/* .logo {
     text-decoration: none;
     color: #deb992;
+} */
+
+.logo-container {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    right: 1em;
+}
+
+.homenus-logo {
+    height: 30%;
+    width: 30%;
+    cursor: pointer;
 }
 
 .navigation-items {

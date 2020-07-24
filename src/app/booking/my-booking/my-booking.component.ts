@@ -12,11 +12,66 @@ import { DeleteBookingComponent } from './delete-booking/delete-booking.componen
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { map } from 'rxjs/operators';
 import { Timing } from '../time-booking/timing.model';
+import { trigger, transition, style, sequence, animate } from '@angular/animations';
 
 @Component({
   selector: 'app-my-booking',
   templateUrl: './my-booking.component.html',
-  styleUrls: ['./my-booking.component.css']
+  styleUrls: ['./my-booking.component.css'],
+  animations: [
+    trigger('fade', [
+      transition('void => *', [
+        style({
+          opacity: '0',
+          transform: 'translateX(-550px)',
+          'box-shadow': 'none',
+        }),
+        sequence([
+          animate(
+            '1s ease',
+            style({
+              opacity: '0.3',
+              transform: 'translateX(0)',
+              'box-shadow': 'none',
+            })
+          ),
+          animate(
+            '0.5s ease',
+            style({
+              opacity: 1,
+              transform: 'translateX(0)',
+            })
+          )
+        ]),
+      ]),
+    ]),
+    trigger('fade2', [
+      transition('void => *', [
+        style({
+          opacity: '0',
+          transform: 'translateX(-550px)',
+          'box-shadow': 'none',
+        }),
+        sequence([
+          animate(
+            '1.5s ease',
+            style({
+              opacity: '0.3',
+              transform: 'translateX(0)',
+              'box-shadow': 'none',
+            })
+          ),
+          animate(
+            '0.5s ease',
+            style({
+              opacity: 1,
+              transform: 'translateX(0)',
+            })
+          )
+        ]),
+      ]),
+    ])
+  ]
 })
 export class MyBookingComponent implements OnInit, AfterViewInit, OnDestroy {
   dataSource = new MatTableDataSource<Booking>();

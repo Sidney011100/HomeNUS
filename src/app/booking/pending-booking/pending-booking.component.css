@@ -1,10 +1,32 @@
-/deep/ .ng-tns-c114-5 {   /*filter field*/
+/*filter field*/
+/* ::ng-deep .ng-tns-c114-5 {   
     color: #deb992;
+    display: flex;
+    justify-content: center;
+} */
+
+h2 {
+    text-align: center;
+    color: #deb992;
+    font-size: 1.2em;
+    padding: 20px 20px 0px 20px;
+}
+
+.divider {
+    position: relative;
     margin: auto;
+    height: 1px;
+    width: 60%;
+    background-color: #deb992;
+    margin-bottom: 20px;
 }
 
 .booking-table {
     margin: 10px;
+}
+
+.filter-field {
+    margin: auto;
 }
 
 .mat-cell, .mat-header-cell, .mat-raised-button, .mat-paginator {
@@ -44,5 +66,5 @@
 }
 
 .misc-btn { /*approved or denied button*/
-    color: rgb(23, 160, 35);
+    color: rgb(180, 179, 179)
 }

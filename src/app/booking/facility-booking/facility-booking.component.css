@@ -6,16 +6,15 @@ h2 {
 }
 
 .filter {
-    padding-left: 10px;
+    margin: auto;
+    color: #deb992 !important;
 }
 
 .divider {
-    position: absolute;
-    left: 0;
-    right: 0;
+    position: relative;
     margin: auto;
     height: 1px;
-    width: 50%;
+    width: 100%;
     background-color: #deb992;
 }
 
@@ -23,29 +22,29 @@ mat-cell a:hover, mat-cell a:active {
     color: lightyellow;
 }
 
-/deep/ .ng-tns-c114-3, .mat-form-field-infix {   /*filter field*/
+/*filter field*/
+/* ::ng-deep .ng-tns-c114-3, .mat-form-field-infix {   
     color: #deb992;
     margin: auto;
+} */
+
+.mat-cell, .mat-header-cell, .mat-raised-button, .mat-paginator {
+    color: #deb992;
+    background-color: #272625;
 }
 
 .add-btn {
-    position: relative;
-    right: 30%;
+    margin-top: 15px;
     padding-left: 10px;
-    bottom: 1.5em;
     background-color: #deb992;
     color: #1a1a1a;
     font-weight: bold;
+    margin-bottom: 20px;
 }
 
 /* Table CSS */
 .booking-table {
     margin: 10px;
-}
-
-.mat-cell, .mat-header-cell, .mat-raised-button, .mat-paginator {
-    color: #deb992;
-    background-color: #272625;
 }
 
 .select-btn {
@@ -107,6 +106,10 @@ table{
 
    .mat-drawer-container, h4 {
        color: #DEB992 !important;
+   }
+
+   h4 {
+       margin-left: 10px;
    }
    
    .mat-column-capacity {

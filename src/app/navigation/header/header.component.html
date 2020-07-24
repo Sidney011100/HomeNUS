@@ -2,8 +2,11 @@
   <div fxHide.gt-xs><button (click)="onToggleSidenav()" mat-icon-button *ngIf="isAuth">
       <mat-icon>menu</mat-icon>
   </button></div>
-  <div><a routerLink="welcome" *ngIf="isAuth">HomeNUS</a></div>
-  <div *ngIf="!isAuth" class="logo">HomeNUS</div>
+  <div class="logo-container">
+    <img class="homenus-logo" src="../../../assets/images/HomeNUS.png" alt="HomeNUS logo" routerLink="welcome" *ngIf="isAuth">
+    <!-- <a routerLink="welcome" *ngIf="isAuth">HomeNUS</a> -->
+  </div>
+  <!-- <div *ngIf="!isAuth" class="logo">HomeNUS</div> -->
   <div fxFlex fxLayoutAlign="flex-end" fxHide.xs >
       <ul fxLayout class="navigation-items" fxLayoutGap="10px" >
         <li *ngIf="isAuth"><a routerLink="/welcome">Welcome</a></li>

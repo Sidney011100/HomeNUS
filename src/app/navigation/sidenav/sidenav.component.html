@@ -2,19 +2,17 @@
 
   <a mat-list-item routerLink="/welcome" (click)="OnClose()" *ngIf="isAuth">
     <mat-icon>home</mat-icon>
-    <span class="nav-caption">Welcome</span>
+    Welcome
   </a>
 
   <a mat-list-item routerLink="/booking" (click)="OnClose()" *ngIf="isAuth">
     <mat-icon>av_timer</mat-icon>
-    <span class="nav-caption">Booking</span>
+    Booking
   </a>
 
-  <mat-list-item (click)="onLogout()" *ngIf="isAuth">
-    <button mat-icon-button>
-      <mat-icon>eject</mat-icon>
-      <span id="logout">Logout</span>
-    </button>
-  </mat-list-item>
+  <a mat-list-item routerLink="/login" (click)="onLogout()" *ngIf="isAuth">
+    <mat-icon>eject</mat-icon>
+    Logout
+  </a>
 
 </mat-nav-list>

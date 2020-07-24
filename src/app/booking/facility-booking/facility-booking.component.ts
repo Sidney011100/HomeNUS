@@ -10,11 +10,66 @@ import { MatDialog } from '@angular/material/dialog';
 import { AuthService } from 'src/app/auth/auth.service';
 import { User } from 'src/app/auth/user.model';
 import { AngularFirestore } from 'angularfire2/firestore';
+import { transition, trigger, style, sequence, animate } from '@angular/animations';
 
 @Component({
   selector: 'app-facility-booking',
   templateUrl: './facility-booking.component.html',
-  styleUrls: ['./facility-booking.component.css']
+  styleUrls: ['./facility-booking.component.css'],
+  animations: [
+    trigger('fade', [
+      transition('void => *', [
+        style({
+          opacity: '0',
+          transform: 'translateX(-550px)',
+          'box-shadow': 'none',
+        }),
+        sequence([
+          animate(
+            '1s ease',
+            style({
+              opacity: '0.3',
+              transform: 'translateX(0)',
+              'box-shadow': 'none',
+            })
+          ),
+          animate(
+            '0.5s ease',
+            style({
+              opacity: 1,
+              transform: 'translateX(0)',
+            })
+          )
+        ]),
+      ]),
+    ]),
+    trigger('fade2', [
+      transition('void => *', [
+        style({
+          opacity: '0',
+          transform: 'translateX(-550px)',
+          'box-shadow': 'none',
+        }),
+        sequence([
+          animate(
+            '1.5s ease',
+            style({
+              opacity: '0.3',
+              transform: 'translateX(0)',
+              'box-shadow': 'none',
+            })
+          ),
+          animate(
+            '0.5s ease',
+            style({
+              opacity: 1,
+              transform: 'translateX(0)',
+            })
+          )
+        ]),
+      ]),
+    ]),
+  ],
 })
 
 

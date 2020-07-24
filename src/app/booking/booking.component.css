@@ -4,9 +4,11 @@ h2 {
     font-size: 1.2em;
     padding: 20px 20px 0px 20px;
 }
-h6 {
+.select-tab {
     color: #deb992;
-    margin-top: 0px;
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
 }
 
 .divider {
@@ -23,10 +25,11 @@ mat-cell a:hover, mat-cell a:active {
     color: lightyellow;
 }
 
-/deep/ .ng-tns-c114-3, .mat-form-field-infix {   /*filter field*/
+ /*filter field*/
+/* ::ng-deep .ng-tns-c114-3, .mat-form-field-infix {  
     color: #deb992;
     margin: auto;
-}
+} */
 
 .add-btn {
     position: relative;
@@ -62,9 +65,9 @@ mat-cell a:hover, mat-cell a:active {
     color: #deb992;
 }
 
-::ng-deep .mat-select-arrow {
+/* ::ng-deep .mat-select-arrow {
     color: #deb992;
-}
+} */
 
 ::ng-deep .mat-select-panel {
     background-color: #deb992;
