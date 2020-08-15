@@ -9,7 +9,7 @@ Even though chat groups, paper posters and emails are frequently used platforms 
 So why not have a One-stop platform just for your Hall/RC to streamline information flow within your residences? 
 
 This project is an on-going NUS Orbital 2020 project by 2 NUS Computing students.     
-View our [video demo](https://drive.google.com/file/d/13MCIHsSsiWu7C4Le-6KqdL9P_YXFqQZf/view?usp=sharing) or try it out link on our [website](https://homenus-937e9.web.app/)!
+View our [video demo](https://drive.google.com/file/d/13MCIHsSsiWu7C4Le-6KqdL9P_YXFqQZf/view?usp=sharing) or try it out on our [website](https://homenus-937e9.web.app/)!
 
 ## Aim 
 
