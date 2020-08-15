@@ -1,7 +1,15 @@
 # HomeNUS
 
+Have you ever missed the sign up for an event? Wondered where any of your halls’ or residential colleges’ announcements went when you remembered just seeing it moments ago?  
+
+To begin with, announcements on chat groups are a convenient platform, however they tend to be buried in everyday texts. Additionally, some of us mute the group due to disinterest in everyday texts or spam, missing out on important announcements. Physical posters are often left unread as we are so caught up in our hectic lives. Meanwhile, announcement emails might also be buried in spam mails.    
+
+Even though chat groups, paper posters and emails are frequently used platforms for pushing out announcements, cases as mentioned above still occur to many of us. These are not official platforms and information tends to be missed by their intended audience.  
+
+So why not have a One-stop platform just for your Hall/RC to streamline information flow within your residences? 
+
 This project is an on-going NUS Orbital 2020 project by 2 NUS Computing students.     
-View our [video demo](https://drive.google.com/file/d/13MCIHsSsiWu7C4Le-6KqdL9P_YXFqQZf/view?usp=sharing) or try it out link on our [website](https://homenus-937e9.web.app/).
+View our [video demo](https://drive.google.com/file/d/13MCIHsSsiWu7C4Le-6KqdL9P_YXFqQZf/view?usp=sharing) or try it out link on our [website](https://homenus-937e9.web.app/)!
 
 ## Aim 
 
