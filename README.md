@@ -1,6 +1,7 @@
 # HomeNus
 
 This project is an on-going NUS Orbital 2020 project by 2 NUS Computing students. 
+View our video demo or visit our website to learn more.
 
 ## Aim 
 
