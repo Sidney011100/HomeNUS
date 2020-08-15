@@ -1,6 +1,6 @@
 # HomeNus
 
-This project is an on-going NUS Orbital 2020 project by 2 NUS Computing students. 
+This project is an on-going NUS Orbital 2020 project by 2 NUS Computing students.     
 View our [video demo](https://drive.google.com/file/d/13MCIHsSsiWu7C4Le-6KqdL9P_YXFqQZf/view?usp=sharing) or try it out link on our [website](https://homenus-937e9.web.app/).
 
 ## Aim 
