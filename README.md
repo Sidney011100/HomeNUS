@@ -1,4 +1,4 @@
-# HomeNus
+# HomeNUS
 
 This project is an on-going NUS Orbital 2020 project by 2 NUS Computing students.     
 View our [video demo](https://drive.google.com/file/d/13MCIHsSsiWu7C4Le-6KqdL9P_YXFqQZf/view?usp=sharing) or try it out link on our [website](https://homenus-937e9.web.app/).
@@ -93,13 +93,13 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app w
 
 ## Demo
 
-Live Demo: https://homenus-937e9.web.app/
+https://homenus-937e9.web.app/
 
-## User Guide 
+## Documentation
 
-https://docs.google.com/document/d/1_oq4h-pjhGScRr2vAG89amhfyuNZSZztN2yE2IJPYV8/edit?usp=sharing
+https://docs.google.com/document/d/1_oq4h-pjhGScRr2vAG89amhfyuNZSZztN2yE2IJPYV8/edit
 
 ## Video Demo of Application Usage
 
-https://drive.google.com/file/d/1MWnqrEKd4FNNMqxBA2NwCA5yT7VC-XRP/view?usp=sharing
+https://drive.google.com/file/d/13MCIHsSsiWu7C4Le-6KqdL9P_YXFqQZf/view?usp=sharing
 
